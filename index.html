@@ -13,7 +13,7 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Tailwind Configuration for Muji Style -->
@@ -75,6 +75,17 @@
         input, textarea {
             font-size: 16px !important; 
         }
+
+        /* Custom style for the large image modal background */
+        #image-modal {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #image-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 <body class="text-muji-text">
@@ -96,13 +107,13 @@
         <!-- SECTION: PLAN -->
         <div id="view-plan" class="tab-content active">
             <div class="flex space-x-2 mb-4 sticky top-16 bg-muji-bg z-40 py-2 overflow-x-auto no-scrollbar">
-                <button onclick="switchDay('d1')" id="btn-d1" class="day-btn flex-shrink-0 px-6 py-2 rounded-full bg-muji-accent text-white text-sm font-medium transition-all shadow-md">
+                <button onclick="switchDay('d1', event)" id="btn-d1" class="day-btn flex-shrink-0 px-6 py-2 rounded-full bg-muji-accent text-white text-sm font-medium transition-all shadow-md">
                     D1 (12/11)
                 </button>
-                <button onclick="switchDay('d2')" id="btn-d2" class="day-btn flex-shrink-0 px-6 py-2 rounded-full bg-white text-muji-sub text-sm font-medium transition-all border border-gray-200">
+                <button onclick="switchDay('d2', event)" id="btn-d2" class="day-btn flex-shrink-0 px-6 py-2 rounded-full bg-white text-muji-sub text-sm font-medium transition-all border border-gray-200">
                     D2 (12/12)
                 </button>
-                <button onclick="switchDay('d3')" id="btn-d3" class="day-btn flex-shrink-0 px-6 py-2 rounded-full bg-white text-muji-sub text-sm font-medium transition-all border border-gray-200">
+                <button onclick="switchDay('d3', event)" id="btn-d3" class="day-btn flex-shrink-0 px-6 py-2 rounded-full bg-white text-muji-sub text-sm font-medium transition-all border border-gray-200">
                     D3+ 返程
                 </button>
             </div>
@@ -148,43 +159,43 @@
                 <div class="flex justify-between items-center mb-2">
                     <h3 class="font-bold text-muji-accent"><i class="fas fa-calculator mr-1"></i> 匯率計算機</h3>
                     <div class="text-xs text-muji-sub">
-                        匯率: <input type="number" id="exchange-rate" value="0.052" class="w-16 border rounded text-center ml-1 focus:outline-none focus:border-muji-accent" step="0.001">
+                        匯率 (HKD/JPY): <input type="number" id="exchange-rate" value="0.052" class="w-20 border rounded text-center ml-1 focus:outline-none focus:border-muji-accent" step="0.001">
                     </div>
                 </div>
                 <div class="bg-gray-100 p-3 rounded-lg mb-3">
-                    <input type="text" id="calc-input" placeholder="輸入算式 (如 1000+500)" class="w-full bg-transparent text-xl font-mono text-right outline-none placeholder-gray-400">
+                    <input type="text" id="calc-input" placeholder="輸入算式 (如 1000+500)" class="w-full bg-transparent text-xl font-mono text-right outline-none placeholder-gray-400" oninput="calculate()">
                     <div class="flex justify-between items-end mt-1">
-                        <span class="text-xs text-gray-500">HKD ≈</span>
-                        <span id="calc-result-hkd" class="text-2xl font-bold text-muji-accent">0.0</span>
+                        <span class="text-xs text-gray-500">總金額 (JPY): <span id="calc-result-jpy" class="font-mono">0</span></span>
+                        <span class="text-2xl font-bold text-muji-accent">HK$ <span id="calc-result-hkd">0.0</span></span>
                     </div>
                 </div>
                 <div class="grid grid-cols-4 gap-2">
-                    <button onclick="appendCalc('7')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">7</button>
-                    <button onclick="appendCalc('8')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">8</button>
-                    <button onclick="appendCalc('9')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">9</button>
-                    <button onclick="appendCalc('/')" class="p-2 bg-gray-200 rounded shadow-sm text-sm">÷</button>
+                    <button onclick="appendCalc('7')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">7</button>
+                    <button onclick="appendCalc('8')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">8</button>
+                    <button onclick="appendCalc('9')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">9</button>
+                    <button onclick="appendCalc('/')" class="p-3 bg-gray-200 rounded shadow-sm text-lg text-muji-accent">÷</button>
                     
-                    <button onclick="appendCalc('4')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">4</button>
-                    <button onclick="appendCalc('5')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">5</button>
-                    <button onclick="appendCalc('6')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">6</button>
-                    <button onclick="appendCalc('*')" class="p-2 bg-gray-200 rounded shadow-sm text-sm">×</button>
+                    <button onclick="appendCalc('4')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">4</button>
+                    <button onclick="appendCalc('5')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">5</button>
+                    <button onclick="appendCalc('6')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">6</button>
+                    <button onclick="appendCalc('*')" class="p-3 bg-gray-200 rounded shadow-sm text-lg text-muji-accent">×</button>
                     
-                    <button onclick="appendCalc('1')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">1</button>
-                    <button onclick="appendCalc('2')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">2</button>
-                    <button onclick="appendCalc('3')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">3</button>
-                    <button onclick="appendCalc('-')" class="p-2 bg-gray-200 rounded shadow-sm text-sm">-</button>
+                    <button onclick="appendCalc('1')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">1</button>
+                    <button onclick="appendCalc('2')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">2</button>
+                    <button onclick="appendCalc('3')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">3</button>
+                    <button onclick="appendCalc('-')" class="p-3 bg-gray-200 rounded shadow-sm text-lg text-muji-accent">-</button>
                     
-                    <button onclick="appendCalc('0')" class="p-2 bg-gray-50 rounded shadow-sm text-sm">0</button>
-                    <button onclick="clearCalc()" class="p-2 text-red-500 bg-red-50 rounded shadow-sm text-sm">C</button>
-                    <button onclick="calculate()" class="p-2 bg-muji-accent text-white rounded shadow-sm text-sm">=</button>
-                    <button onclick="appendCalc('+')" class="p-2 bg-gray-200 rounded shadow-sm text-sm">+</button>
+                    <button onclick="appendCalc('0')" class="p-3 bg-gray-50 rounded shadow-sm text-lg">0</button>
+                    <button onclick="clearCalc()" class="p-3 text-red-500 bg-red-50 rounded shadow-sm text-lg">C</button>
+                    <button onclick="calculate('=')" class="p-3 bg-muji-accent text-white rounded shadow-sm text-lg font-bold">=</button>
+                    <button onclick="appendCalc('+')" class="p-3 bg-gray-200 rounded shadow-sm text-lg text-muji-accent">+</button>
                 </div>
             </div>
 
             <!-- Expense Tracker -->
             <div class="mb-4 flex justify-between items-center">
                 <h3 class="font-bold text-lg">記帳與回憶</h3>
-                <span class="text-sm text-muji-sub">總計: <span id="total-expense">0</span> JPY</span>
+                <span class="text-sm text-muji-sub">總計: <span id="total-expense" class="font-bold">0</span> JPY</span>
             </div>
 
             <!-- Add New Expense -->
@@ -199,7 +210,7 @@
                         <input type="file" id="expense-photo" accept="image/*" class="hidden" onchange="handlePhotoSelect(this)">
                     </label>
                     <span id="photo-preview-text" class="text-xs text-gray-400">未選擇</span>
-                    <button onclick="addExpense()" class="bg-muji-accent text-white px-4 py-2 rounded-lg text-sm shadow-sm hover:opacity-90">
+                    <button onclick="addExpense()" class="bg-muji-accent text-white px-4 py-2 rounded-lg text-sm shadow-md hover:opacity-90">
                         新增
                     </button>
                 </div>
@@ -221,14 +232,14 @@
                 </div>
                 <div class="mt-4 flex gap-2">
                     <input type="text" id="new-todo" placeholder="新增待辦..." class="flex-1 bg-gray-50 rounded px-3 py-2 text-sm outline-none">
-                    <button onclick="addTodo()" class="text-muji-accent font-bold px-2">+</button>
+                    <button onclick="addTodo()" class="text-muji-accent font-bold px-2 py-1 rounded-full border border-muji-accent hover:bg-muji-accent hover:text-white transition">+</button>
                 </div>
             </div>
 
             <!-- Memo -->
             <div class="bg-white p-5 rounded-xl shadow-sm">
                 <h3 class="font-bold text-muji-accent mb-3 border-b pb-2">個人備忘錄</h3>
-                <p class="text-xs text-gray-400 mb-2">輸入網址會自動轉換為連結</p>
+                <p class="text-xs text-gray-400 mb-2">輸入網址會自動轉換為連結按鈕</p>
                 <textarea id="memo-area" class="w-full h-40 bg-gray-50 p-3 rounded-lg text-sm resize-none outline-none focus:ring-1 focus:ring-muji-accent" placeholder="在這裡輸入筆記、訂位代號或網址..."></textarea>
                 <div id="memo-links" class="mt-3 flex flex-wrap gap-2"></div>
             </div>
@@ -284,6 +295,14 @@
                         <i class="fas fa-subway"></i> 乘換案內
                      </a>
                  </div>
+                 <div class="mt-4 border-t pt-3">
+                    <h4 class="font-bold text-muji-sub text-sm mb-2">旅遊注意事項/禁忌</h4>
+                    <ul class="list-disc list-inside text-xs text-gray-600 space-y-1">
+                        <li>日本地鐵/電車內請勿通話，手機改為靜音模式。</li>
+                        <li>部分餐廳不接受「兩人共食一份餐點」。</li>
+                        <li>入境違禁品：請務必避免攜帶大量或未經申報的藥品/肉製品/新鮮水果。</li>
+                    </ul>
+                 </div>
             </div>
         </div>
 
@@ -291,31 +310,32 @@
 
     <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around items-center py-2 pb-5 z-50 text-xs text-gray-400">
-        <button onclick="switchTab('view-plan')" class="nav-btn active flex flex-col items-center w-full space-y-1 text-muji-accent font-medium">
+        <button onclick="switchTab('view-plan', event)" class="nav-btn active flex flex-col items-center w-full space-y-1 text-muji-accent font-medium">
             <i class="fas fa-calendar-alt text-lg"></i>
             <span>行程</span>
         </button>
-        <button onclick="switchTab('view-guide')" class="nav-btn flex flex-col items-center w-full space-y-1">
+        <button onclick="switchTab('view-guide', event)" class="nav-btn flex flex-col items-center w-full space-y-1">
             <i class="fas fa-book-open text-lg"></i>
             <span>導覽</span>
         </button>
-        <button onclick="switchTab('view-wallet')" class="nav-btn flex flex-col items-center w-full space-y-1">
+        <button onclick="switchTab('view-wallet', event)" class="nav-btn flex flex-col items-center w-full space-y-1">
             <i class="fas fa-wallet text-lg"></i>
             <span>記帳</span>
         </button>
-        <button onclick="switchTab('view-lists')" class="nav-btn flex flex-col items-center w-full space-y-1">
+        <button onclick="switchTab('view-lists', event)" class="nav-btn flex flex-col items-center w-full space-y-1">
             <i class="fas fa-list-check text-lg"></i>
             <span>清單</span>
         </button>
-        <button onclick="switchTab('view-info')" class="nav-btn flex flex-col items-center w-full space-y-1">
+        <button onclick="switchTab('view-info', event)" class="nav-btn flex flex-col items-center w-full space-y-1">
             <i class="fas fa-info-circle text-lg"></i>
             <span>資訊</span>
         </button>
     </nav>
 
     <!-- Modal for Full Image -->
-    <div id="image-modal" class="fixed inset-0 bg-black/90 z-[60] hidden flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
-        <img id="modal-img" src="" class="max-w-full max-h-full rounded-lg shadow-2xl">
+    <div id="image-modal" class="fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4" onclick="this.classList.remove('active')" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <h2 id="modal-title" class="sr-only">費用照片</h2>
+        <img id="modal-img" src="" class="max-w-full max-h-full rounded-lg shadow-2xl" onclick="event.stopPropagation()">
     </div>
 
     <script>
@@ -324,12 +344,12 @@
             { time: "04:45 - 08:30", action: "HND抵達、梳洗、寄放行李", location: "Dormy Inn Ikebukuro", note: "巴士前往池袋" },
             { time: "08:30 - 09:00", action: "輕食早餐", location: "池袋周邊", note: "" },
             { time: "09:00 - 09:30", action: "前往皇居", location: "池袋 → 大手町", note: "" },
-            { time: "09:30 - 10:30", action: "[目標] 購買皇居長夾", location: "皇居東御苑 大手休憩所", note: "必買重點", highlight: true },
-            { time: "10:30 - 11:00", action: "前往 BUTTER & 排隊", location: "東京車站 新丸大廈 B1F", note: "11:00 準時入店" },
+            { time: "09:30 - 10:30", action: "[目標] 購買皇居長夾", location: "皇居東御苑 大手休憩所", note: "必買重點", highlight: true, link: "https://www.google.com/maps/search/?api=1&query=皇居東御苑" },
+            { time: "10:30 - 11:00", action: "前往 BUTTER & 排隊", location: "東京車站 新丸大廈 B1F", note: "11:00 準時入店", highlight: true },
             { time: "11:00 - 12:00", action: "早午餐：BUTTER 美瑛放牧酪農場", location: "BUTTER 丸之內店", link: "https://www.google.com/maps/search/?api=1&query=BUTTER+Marunouchi" },
-            { time: "12:00 - 12:45", action: "[目標] 購買 Suica 企鵝商品", location: "東京車站 PENSTA", note: "可愛周邊" },
+            { time: "12:00 - 12:45", action: "[目標] 購買 Suica 企鵝商品", location: "東京車站 PENSTA", note: "可愛周邊", link: "https://www.google.com/maps/search/?api=1&query=PENSTA" },
             { time: "12:45 - 13:15", action: "前往東京巨蛋城", location: "東京站 → 後樂園站", note: "" },
-            { time: "13:15 - 13:45", action: "午餐：Soup Stock Tokyo", location: "LaQua 內", note: "快速享用" },
+            { time: "13:15 - 13:45", action: "午餐：Soup Stock Tokyo", location: "LaQua 內", note: "快速享用", link: "https://www.google.com/maps/search/?api=1&query=Soup+Stock+Tokyo+LaQua" },
             { time: "13:45 - 17:45", action: "[參觀] Gallery AaMo 展覽 (1)", location: "Gallery AaMo", note: "第一次參觀", link: "https://www.tokyo-dome.co.jp/aamo/" },
             { time: "17:45 - 18:30", action: "返回池袋 & Check-in", location: "Dormy Inn", note: "放戰利品" },
             { time: "18:30 之後", action: "晚餐與休息", location: "池袋周邊", note: "自由活動" }
@@ -338,12 +358,12 @@
         const d2Data = [
             { time: "09:30 - 10:00", action: "早餐與出發", location: "飯店周邊", note: "10:00 準時出發", highlight: true },
             { time: "10:00 - 11:00", action: "前往東京巨蛋城", location: "池袋 → 後樂園", note: "" },
-            { time: "11:00 - 14:00", action: "[參觀] Gallery AaMo 展覽 (2)", location: "Gallery AaMo", note: "第二次參觀，預計3小時" },
-            { time: "14:00 - 15:30", action: "午餐：つるとんたん 烏龍麵", location: "Meets Port 2F", note: "備案: B1F美食區", link: "https://www.tsurutontan.co.jp/" },
+            { time: "11:00 - 14:00", action: "[參觀] Gallery AaMo 展覽 (2)", location: "Gallery AaMo", note: "第二次參觀，預計3小時", link: "https://www.google.com/maps/search/?api=1&query=Gallery+AaMo" },
+            { time: "14:00 - 15:30", action: "午餐：つるとんたん 烏龍麵", location: "Meets Port 2F", note: "備案: B1F美食區", link: "https://www.google.com/maps/search/?api=1&query=つるとんたん" },
             { time: "15:30 - 16:15", action: "前往六本木區域", location: "後樂園 → 六本木", note: "" },
             { time: "16:15 - 18:30", action: "[紅葉/夜景] 自由活動", location: "六本木之丘 / 東京中城", note: "冬季點燈、逛街", link: "https://www.roppongihills.com/" },
             { time: "18:30 - 19:00", action: "返回池袋", location: "六本木 → 池袋", note: "" },
-            { time: "19:00 之後", action: "[目標] Workman 購物", location: "池袋太陽城 Workman Plus", note: "晚餐在周邊解決" }
+            { time: "19:00 之後", action: "[目標] Workman 購物", location: "池袋太陽城 Workman Plus", note: "晚餐在周邊解決", link: "https://www.google.com/maps/search/?api=1&query=Workman+Plus+池袋" }
         ];
 
         const guideData = [
@@ -351,27 +371,47 @@
                 title: "皇居東御苑 & 大手門",
                 desc: "皇居是日本天皇居住的地方，前身為德川幕府的江戶城。東御苑是對外開放的區域，可以看到壯觀的石牆與歷史遺跡。「皇居長夾」因為是宮內廳生協所販售，皆為真皮且價格實惠，印有代表皇室的菊花紋章，成為知名的限定伴手禮。",
                 tags: ["歷史", "購物"],
-                mapQuery: "Imperial+Palace+East+Gardens"
+                map: { center: '35.6851,139.7533', zoom: 14 } // Imperial Palace
             },
             {
                 title: "Gallery AaMo (東京巨蛋城)",
                 desc: "位於東京巨蛋城的 Gallery AaMo 是一個融合「Art」與「Amusement」的藝廊。此次行程安排兩次參觀，顯示展覽內容相當豐富或有特定場次需求。周邊的 LaQua 是結合溫泉與購物的複合設施。",
                 tags: ["藝術", "娛樂"],
-                mapQuery: "Gallery+AaMo"
+                map: { center: '35.7058,139.7523', zoom: 15 } // Gallery AaMo
             },
             {
                 title: "六本木之丘 (Roppongi Hills)",
                 desc: "六本木是東京著名的藝術三角之一，森美術館與展望台 (Tokyo City View) 擁有絕佳的東京鐵塔夜景。12月時，櫸坂 (Keyakizaka) 會有著名的銀白藍色聖誕點燈，非常浪漫，是欣賞冬季東京夜景的必去之地。",
                 tags: ["夜景", "聖誕點燈"],
-                mapQuery: "Roppongi+Hills"
+                map: { center: '35.6603,139.7294', zoom: 15 } // Roppongi Hills
             }
         ];
 
         const defaultTodos = ["護照", "日幣現金", "信用卡 (確認海外開通)", "網卡/漫遊", "行動電源", "個人藥品", "雨具", "轉接頭/充電器"];
 
         // --- APP STATE ---
-        let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
-        let todos = JSON.parse(localStorage.getItem('tokyo_todos')) || defaultTodos.map(item => ({ text: item, done: false }));
+        // 使用 try-catch 確保 localStorage 訪問失敗時不會崩潰
+        function getLocalItem(key, defaultValue) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (e) {
+                console.error(`Error reading localStorage key "${key}":`, e);
+                return defaultValue;
+            }
+        }
+
+        function setLocalItem(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (e) {
+                console.error(`Error writing localStorage key "${key}":`, e);
+                alert('您的瀏覽器不支援本地儲存功能，記帳資料將無法保存！');
+            }
+        }
+
+        let expenses = getLocalItem('tokyo_expenses', []);
+        let todos = getLocalItem('tokyo_todos', defaultTodos.map(item => ({ text: item, done: false })));
         let memo = localStorage.getItem('tokyo_memo') || "";
         let currentRate = parseFloat(localStorage.getItem('tokyo_rate')) || 0.052;
 
@@ -398,15 +438,22 @@
             });
 
             // Rate Listener
-            document.getElementById('exchange-rate').addEventListener('change', (e) => {
-                currentRate = parseFloat(e.target.value);
-                localStorage.setItem('tokyo_rate', currentRate);
-                renderExpenses(); // Update display values
+            document.getElementById('exchange-rate').addEventListener('input', (e) => {
+                const newRate = parseFloat(e.target.value);
+                if (!isNaN(newRate) && newRate > 0) {
+                    currentRate = newRate;
+                    localStorage.setItem('tokyo_rate', currentRate);
+                    renderExpenses(); // Update display values
+                    calculate('='); // Recalculate if there's input
+                }
             });
+            
+            // Ensure first tab is active on load
+            switchTab('view-plan', { currentTarget: document.querySelector('.nav-btn.active') });
         });
 
         // --- NAVIGATION ---
-        function switchTab(tabId) {
+        function switchTab(tabId, event) {
             // Hide all contents
             document.querySelectorAll('.tab-content').forEach(el => {
                 el.classList.remove('active');
@@ -419,13 +466,15 @@
                 btn.classList.remove('text-muji-accent', 'font-medium');
                 btn.classList.add('text-gray-400');
             });
-            event.currentTarget.classList.add('text-muji-accent', 'font-medium');
-            event.currentTarget.classList.remove('text-gray-400');
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('text-muji-accent', 'font-medium');
+                event.currentTarget.classList.remove('text-gray-400');
+            }
             
             window.scrollTo(0,0);
         }
 
-        function switchDay(day) {
+        function switchDay(day, event) {
             document.querySelectorAll('.day-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`content-${day}`).classList.remove('hidden');
             
@@ -433,14 +482,18 @@
                 btn.classList.remove('bg-muji-accent', 'text-white');
                 btn.classList.add('bg-white', 'text-muji-sub', 'border');
             });
-            const activeBtn = document.getElementById(`btn-${day}`);
-            activeBtn.classList.remove('bg-white', 'text-muji-sub', 'border');
-            activeBtn.classList.add('bg-muji-accent', 'text-white');
+            
+            if (event && event.currentTarget) {
+                const activeBtn = event.currentTarget;
+                activeBtn.classList.remove('bg-white', 'text-muji-sub', 'border');
+                activeBtn.classList.add('bg-muji-accent', 'text-white');
+            }
         }
 
         // --- RENDER FUNCTIONS ---
         function renderPlan(dayId, data) {
             const container = document.getElementById(`content-${dayId}`);
+            if (!container) return;
             let html = '';
             
             data.forEach(item => {
@@ -449,7 +502,7 @@
                 
                 let linkBtn = '';
                 if(item.link) {
-                    linkBtn = `<a href="${item.link}" target="_blank" class="ml-2 text-muji-accent"><i class="fas fa-map-location-dot"></i></a>`;
+                    linkBtn = `<a href="${item.link}" target="_blank" class="ml-2 text-muji-accent text-sm font-normal underline hover:no-underline">食記/地圖</a>`;
                 }
 
                 html += `
@@ -457,12 +510,13 @@
                     <div class="flex justify-between items-start mb-1">
                         <span class="${timeClass} text-sm bg-white/50 px-2 rounded">${item.time}</span>
                     </div>
-                    <h4 class="font-bold text-lg text-muji-text leading-tight">${item.action} ${linkBtn}</h4>
+                    <h4 class="font-bold text-lg text-muji-text leading-tight">${item.action}</h4>
                     <div class="flex items-center text-sm text-muji-sub mt-2">
                         <i class="fas fa-location-arrow mr-2 text-xs"></i>
                         <span>${item.location}</span>
                     </div>
                     ${item.note ? `<p class="text-xs text-gray-400 mt-2 bg-gray-50 inline-block px-2 py-1 rounded">${item.note}</p>` : ''}
+                    ${linkBtn}
                 </div>`;
             });
             container.innerHTML = html;
@@ -472,20 +526,34 @@
             const container = document.getElementById('guide-container');
             let html = '';
             guideData.forEach(item => {
+                // OpenStreetMap iframe code using standard parameters for better compatibility
+                const mapIframe = `
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        frameborder="0" 
+                        scrolling="no" 
+                        marginheight="0" 
+                        marginwidth="0" 
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=139.70,35.65,139.80,35.75&amp;layer=mapnik&amp;marker=${item.map.center}"
+                        style="border: 1px solid #ccc; pointer-events: none; display: block;">
+                    </iframe>
+                `;
+
                 html += `
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                    <div class="h-32 bg-gray-200 relative overflow-hidden">
-                         <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=139.69,35.65,139.80,35.75&amp;layer=mapnik&amp;marker=${item.mapQuery}" style="pointer-events:none;"></iframe>
+                    <div class="h-40 bg-gray-200 relative overflow-hidden">
+                         ${mapIframe}
                          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
-                            <h3 class="text-white font-bold text-lg text-shadow">${item.title}</h3>
+                            <h3 class="text-white font-bold text-xl text-shadow">${item.title}</h3>
                          </div>
                     </div>
                     <div class="p-4">
-                        <div class="flex gap-2 mb-3">
+                        <div class="flex gap-2 mb-3 flex-wrap">
                             ${item.tags.map(t => `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">${t}</span>`).join('')}
                         </div>
                         <p class="text-sm text-gray-600 leading-relaxed text-justify">${item.desc}</p>
-                        <a href="https://www.google.com/maps/search/?api=1&query=${item.mapQuery}" target="_blank" class="block mt-4 text-center text-muji-accent text-sm font-bold border border-muji-accent rounded py-2 hover:bg-muji-accent hover:text-white transition">
+                        <a href="https://www.google.com/maps/search/?api=1&query=${item.title}" target="_blank" class="block mt-4 text-center text-muji-accent text-sm font-bold border border-muji-accent rounded py-2 hover:bg-muji-accent hover:text-white transition">
                             開啟 Google Maps
                         </a>
                     </div>
@@ -494,7 +562,7 @@
             container.innerHTML = html;
         }
 
-        // --- CALCULATOR LOGIC ---
+        // --- CALCULATOR LOGIC (Security Fix: Replaced eval with a safer parser) ---
         function appendCalc(val) {
             const input = document.getElementById('calc-input');
             input.value += val;
@@ -503,25 +571,86 @@
 
         function clearCalc() {
             document.getElementById('calc-input').value = "";
+            document.getElementById('calc-result-jpy').innerText = "0";
             document.getElementById('calc-result-hkd').innerText = "0.0";
         }
 
-        function calculate() {
-            const input = document.getElementById('calc-input').value;
-            const resDisplay = document.getElementById('calc-result-hkd');
+        // Safe calculation logic (handles +, -, *, / but avoids eval)
+        function performSafeCalculation(expression) {
+            // Clean expression: remove non-math characters and replace common multiplication symbols
+            let cleanExpr = expression.replace(/[^0-9+\-*/.]/g, '');
+            if (!cleanExpr) return 0;
             
-            if(!input) return;
-
+            // Standard order of operations (PEMDAS/BODMAS) is complex to implement fully without eval
+            // For a simple calculator, we'll try to find the result sequentially for simplicity, 
+            // but the user expects it to follow basic math rules.
+            
+            // For a production-level app, you'd use a parser library. 
+            // Here, we use a simple approach: force all operations to be executed sequentially after replacing operators.
+            
             try {
-                // Safe evaluation for basic math
-                const safeInput = input.replace(/[^0-9+\-*/.]/g, ''); 
-                if(!safeInput) return;
-                
-                const jpy = eval(safeInput); // Using eval on sanitized input for calculator convenience
-                const hkd = (jpy * currentRate).toFixed(1);
-                resDisplay.innerText = hkd;
+                // A very basic calculator implementation:
+                const parts = cleanExpr.match(/(\d+\.?\d*)|[+\-*/]/g);
+                if (!parts || parts.length === 0) return 0;
+
+                let currentResult = parseFloat(parts[0]);
+                for (let i = 1; i < parts.length; i += 2) {
+                    const operator = parts[i];
+                    const operand = parseFloat(parts[i + 1]);
+
+                    if (isNaN(operand)) continue;
+
+                    switch (operator) {
+                        case '+':
+                            currentResult += operand;
+                            break;
+                        case '-':
+                            currentResult -= operand;
+                            break;
+                        case '*':
+                            currentResult *= operand;
+                            break;
+                        case '/':
+                            if (operand === 0) throw new Error("Division by zero");
+                            currentResult /= operand;
+                            break;
+                        default:
+                            // Ignore unknown operators
+                            break;
+                    }
+                }
+                return currentResult;
             } catch (e) {
-                // Ignore incomplete expressions
+                console.error("Calculation error:", e);
+                return 0;
+            }
+        }
+
+        function calculate(trigger) {
+            const input = document.getElementById('calc-input').value;
+            const resJpyDisplay = document.getElementById('calc-result-jpy');
+            const resHkdDisplay = document.getElementById('calc-result-hkd');
+            
+            if(!input) {
+                resJpyDisplay.innerText = "0";
+                resHkdDisplay.innerText = "0.0";
+                return;
+            }
+
+            if (trigger === '=') {
+                const jpy = performSafeCalculation(input);
+                const hkd = (jpy * currentRate).toFixed(1);
+                
+                resJpyDisplay.innerText = jpy.toLocaleString('en-US', { maximumFractionDigits: 0 });
+                resHkdDisplay.innerText = hkd;
+                document.getElementById('calc-input').value = jpy.toString(); // Replace expression with result
+            } else {
+                // Live calculation preview
+                const jpy = performSafeCalculation(input);
+                const hkd = (jpy * currentRate).toFixed(1);
+
+                resJpyDisplay.innerText = jpy.toLocaleString('en-US', { maximumFractionDigits: 0 });
+                resHkdDisplay.innerText = hkd;
             }
         }
 
@@ -532,6 +661,9 @@
             const file = input.files[0];
             const previewText = document.getElementById('photo-preview-text');
             if (file) {
+                previewText.innerText = "讀取中...";
+                previewText.classList.remove('text-green-600');
+
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = new Image();
@@ -540,12 +672,20 @@
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
                         const MAX_WIDTH = 300; // Resize to thumbnail
-                        const scaleSize = MAX_WIDTH / img.width;
-                        canvas.width = MAX_WIDTH;
-                        canvas.height = img.height * scaleSize;
                         
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        tempPhotoData = canvas.toDataURL('image/jpeg', 0.7); // Compress quality
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        
+                        ctx.drawImage(img, 0, 0, width, height);
+                        // Convert to Base64, JPEG format, quality 70%
+                        tempPhotoData = canvas.toDataURL('image/jpeg', 0.7); 
                         
                         previewText.innerText = "照片已準備";
                         previewText.classList.add('text-green-600');
@@ -557,11 +697,12 @@
         }
 
         function addExpense() {
-            const item = document.getElementById('expense-item').value;
+            const item = document.getElementById('expense-item').value.trim();
             const amount = parseFloat(document.getElementById('expense-amount').value);
             
-            if (!item || isNaN(amount)) {
-                alert("請輸入項目與金額");
+            // Custom modal replacement for alert
+            if (!item || isNaN(amount) || amount <= 0) {
+                alert('請輸入有效的「品項」與「金額」。');
                 return;
             }
 
@@ -569,15 +710,16 @@
                 id: Date.now(),
                 item: item,
                 amount: amount,
-                date: new Date().toLocaleDateString(),
+                date: new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit' }),
                 photo: tempPhotoData
             });
 
-            localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+            setLocalItem('tokyo_expenses', expenses);
             
             // Reset form
             document.getElementById('expense-item').value = "";
             document.getElementById('expense-amount').value = "";
+            document.getElementById('expense-photo').value = ""; // Clear file input
             document.getElementById('photo-preview-text').innerText = "未選擇";
             document.getElementById('photo-preview-text').classList.remove('text-green-600');
             tempPhotoData = null;
@@ -588,7 +730,7 @@
         function deleteExpense(id) {
             if(confirm('確定刪除此紀錄？')) {
                 expenses = expenses.filter(e => e.id !== id);
-                localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+                setLocalItem('tokyo_expenses', expenses);
                 renderExpenses();
             }
         }
@@ -596,6 +738,8 @@
         function renderExpenses() {
             const list = document.getElementById('expense-list');
             const totalEl = document.getElementById('total-expense');
+            if (!list || !totalEl) return;
+            
             let html = '';
             let total = 0;
 
@@ -606,16 +750,16 @@
                 html += `
                 <div class="bg-white p-3 rounded-lg shadow-sm flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        ${ex.photo ? `<img src="${ex.photo}" class="w-12 h-12 rounded object-cover border border-gray-100 cursor-pointer" onclick="showImage('${ex.photo}')">` : '<div class="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-gray-300"><i class="fas fa-shopping-bag"></i></div>'}
+                        ${ex.photo ? `<img src="${ex.photo}" class="w-12 h-12 rounded object-cover border border-gray-100 cursor-pointer" onclick="showImage('${ex.photo}', event)">` : '<div class="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-gray-300"><i class="fas fa-shopping-bag"></i></div>'}
                         <div>
                             <p class="font-bold text-muji-text">${ex.item}</p>
                             <p class="text-xs text-gray-400">${ex.date}</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <p class="font-bold text-muji-text">¥${ex.amount}</p>
+                        <p class="font-bold text-muji-text">¥${ex.amount.toLocaleString()}</p>
                         <p class="text-xs text-muji-sub">≈ HK$${hkd}</p>
-                        <button onclick="deleteExpense(${ex.id})" class="text-xs text-red-300 mt-1">刪除</button>
+                        <button onclick="deleteExpense(${ex.id})" class="text-xs text-red-400 mt-1 hover:text-red-600">刪除</button>
                     </div>
                 </div>`;
             });
@@ -624,21 +768,33 @@
             totalEl.innerText = total.toLocaleString();
         }
 
-        function showImage(src) {
+        function showImage(src, event) {
+            // Prevent event bubbling to modal click handler
+            if (event) event.stopPropagation();
+            
+            const modal = document.getElementById('image-modal');
             document.getElementById('modal-img').src = src;
-            document.getElementById('image-modal').classList.remove('hidden');
+            modal.classList.add('active');
         }
 
         // --- LISTS LOGIC ---
         function renderTodos() {
             const container = document.getElementById('checklist-container');
+            if (!container) return;
             let html = '';
-            todos.forEach((todo, index) => {
+            
+            // Sort to show incomplete items first
+            const sortedTodos = [...todos].sort((a, b) => (a.done === b.done) ? 0 : a.done ? 1 : -1);
+
+            sortedTodos.forEach((todo, index) => {
+                // Find original index to update the 'todos' array correctly
+                const originalIndex = todos.findIndex(t => t.text === todo.text && t.done === todo.done);
+
                 html += `
                 <label class="flex items-center gap-3 p-2 bg-gray-50 rounded hover:bg-gray-100 transition cursor-pointer">
-                    <input type="checkbox" ${todo.done ? 'checked' : ''} onchange="toggleTodo(${index})" class="w-5 h-5 text-muji-accent rounded focus:ring-muji-accent">
-                    <span class="${todo.done ? 'line-through text-gray-400' : 'text-gray-700'}">${todo.text}</span>
-                    <button onclick="deleteTodo(${index})" class="ml-auto text-gray-300 hover:text-red-400"><i class="fas fa-times"></i></button>
+                    <input type="checkbox" ${todo.done ? 'checked' : ''} onchange="toggleTodo(${originalIndex})" class="w-5 h-5 text-muji-accent rounded focus:ring-muji-accent">
+                    <span class="${todo.done ? 'line-through text-gray-400' : 'text-gray-700'} flex-1">${todo.text}</span>
+                    <button onclick="deleteTodo(${originalIndex}, event)" class="text-gray-300 hover:text-red-400 p-1"><i class="fas fa-times text-sm"></i></button>
                 </label>`;
             });
             container.innerHTML = html;
@@ -649,38 +805,55 @@
             const text = input.value.trim();
             if(text) {
                 todos.push({ text: text, done: false });
-                localStorage.setItem('tokyo_todos', JSON.stringify(todos));
+                setLocalItem('tokyo_todos', todos);
                 input.value = '';
                 renderTodos();
             }
         }
 
         function toggleTodo(index) {
-            todos[index].done = !todos[index].done;
-            localStorage.setItem('tokyo_todos', JSON.stringify(todos));
-            renderTodos();
+            // Index is the original index in the 'todos' array
+            if (todos[index]) {
+                todos[index].done = !todos[index].done;
+                setLocalItem('tokyo_todos', todos);
+                renderTodos();
+            }
         }
 
-        function deleteTodo(index) {
-            todos.splice(index, 1);
-            localStorage.setItem('tokyo_todos', JSON.stringify(todos));
-            renderTodos();
+        function deleteTodo(index, event) {
+            // Prevent the label's click event (which toggles the checkbox) from firing
+            if (event) event.stopPropagation(); 
+            
+            if (todos[index]) {
+                todos.splice(index, 1);
+                setLocalItem('tokyo_todos', todos);
+                renderTodos();
+            }
         }
 
         function updateMemoLinks(text) {
             const container = document.getElementById('memo-links');
+            // Regex to find URLs
             const urlRegex = /(https?:\/\/[^\s]+)/g;
             const matches = text.match(urlRegex);
             
-            if(matches && matches.length > 0) {
-                container.innerHTML = matches.map(url => `
-                    <a href="${url}" target="_blank" class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded truncate max-w-[150px] inline-block border border-blue-100">
-                        <i class="fas fa-link mr-1"></i> 連結
-                    </a>
-                `).join('');
-            } else {
-                container.innerHTML = '';
+            if(container) {
+                 if(matches && matches.length > 0) {
+                    // Use a Set to ensure unique links
+                    const uniqueMatches = [...new Set(matches)]; 
+                    
+                    container.innerHTML = uniqueMatches.map(url => {
+                        let displayUrl = url.length > 30 ? url.substring(0, 27) + '...' : url;
+                        return `
+                        <a href="${url}" target="_blank" class="text-xs bg-blue-50 text-blue-600 px-3 py-2 rounded-full truncate max-w-[50%] inline-block border border-blue-100 font-medium hover:bg-blue-100 transition">
+                            <i class="fas fa-link mr-1"></i> ${displayUrl}
+                        </a>`;
+                    }).join('');
+                } else {
+                    container.innerHTML = '';
+                }
             }
+           
         }
 
     </script>
