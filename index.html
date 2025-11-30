@@ -1,705 +1,689 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>東京快閃 2025 | Muji Trip</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts: Noto Sans TC (Text) & Roboto Mono (Numbers) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* Muji Style Customization */
+        :root {
+            --bg-color: #f9f9f6; /* Washi Paper color */
+            --primary: #44403c;  /* Stone 700 */
+            --accent: #a8a29e;   /* Stone 400 */
+            --danger: #b91c1c;   /* Muted Red */
+        }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+        /* Custom Scrollbar for hidden look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e7e5e4; /* stone-200 */
+        }
+        .input-muji {
+            background-color: #f5f5f4;
+            border: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .input-muji:focus {
+            outline: none;
+            border-bottom-color: #78716c;
+        }
+        /* Bottom Navigation Safe Area */
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="zh-TW"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;東京快閃 202512&lt;/title&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- React &amp; ReactDOM --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/@babel/standalone/babel.min.js"&gt;&lt;/script&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tailwind CSS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Lucide Icons --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Google Fonts: Noto Sans TC (Text) &amp; Roboto Mono (Numbers) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Muji Style Customization */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--bg-color: #f9f9f6; /* Washi Paper color */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--primary: #44403c;<span class="Apple-converted-space">  </span>/* Stone 700 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--accent: #a8a29e; <span class="Apple-converted-space">  </span>/* Stone 400 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--danger: #b91c1c; <span class="Apple-converted-space">  </span>/* Muted Red */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Noto Sans TC', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--bg-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-tap-highlight-color: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.font-mono {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Roboto Mono', monospace;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Custom Scrollbar for hidden look */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.no-scrollbar::-webkit-scrollbar {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.no-scrollbar {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-ms-overflow-style: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>scrollbar-width: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #e7e5e4; /* stone-200 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.input-muji {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f5f5f4;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 2px solid transparent;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: border-color 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.input-muji:focus {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>outline: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-bottom-color: #78716c;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Bottom Navigation Safe Area */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.safe-bottom {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: env(safe-area-inset-bottom);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="root"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/babel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const { useState, useEffect, useRef } = React;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>Calendar, MapPin, Wallet, List, Info,<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>Plane, Bed, Coffee, ShoppingBag, Camera,<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>ChevronRight, ExternalLink, Trash2, Plus,<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>Calculator, Sun, Phone, AlertTriangle<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>} = lucide;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- DATA SECTION ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const TRIP_DATA = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>dates: ["12/10", "12/11", "12/12", "12/13", "12/14"],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>hotel: {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>name: "Dormy Inn Ikebukuro",</p>
-<p class="p1"><span class="Apple-converted-space">                </span>zhName: "天然温泉 豊穣の湯 ドーミーイン池袋",</p>
-<p class="p1"><span class="Apple-converted-space">                </span>address: "東京都豊島区東池袋3-11-11",</p>
-<p class="p1"><span class="Apple-converted-space">                </span>mapUrl: "https://www.google.com/maps/search/?api=1&amp;query=Dormy+Inn+Ikebukuro",</p>
-<p class="p1"><span class="Apple-converted-space">                </span>note: "訂單編號: (請參考附件) | 12/11-12/13"</p>
-<p class="p1"><span class="Apple-converted-space">            </span>},</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flights: [</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ type: "去程", code: "UO624", time: "12/10 23:55 → 12/11 04:45", route: "HKG → HND T3" },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ type: "回程", code: "UO629", time: "12/14 01:55 起飛", route: "HND T3 → HKG" }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>itinerary: [</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>date: "12/10 (三)",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>highlight: "出發日",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>events: [</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "23:55", title: "香港出發", desc: "航班 UO624 / T3 報到", icon: "flight", important: true }</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>date: "12/11 (四)",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>highlight: "抵達 &amp; 購物 &amp; 展覽",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>events: [</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "04:45", title: "抵達羽田", desc: "入境、領SIM卡、梳洗", icon: "flight" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "08:30", title: "巴士移動", desc: "利木津巴士前往池袋 (僅寄放行李)", icon: "bus" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "10:30", title: "東京車站購物", desc: "皇居長夾、BUTTER甜點、7-11取票(請參考附件)", icon: "shop", map: "東京駅" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "14:30", title: "Chiikawa Park", desc: "Sunshine City Annex 1F", icon: "shop" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "16:00", title: "Check-in", desc: "Dormy Inn 池袋", icon: "hotel" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "17:00", title: "展覽 (Gallery AaMo)", desc: "第1刷，錯開人潮", icon: "star", map: "Gallery AaMo" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "20:30", title: "溫泉 &amp; 晚餐", desc: "池袋周邊覓食", icon: "food" }</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>date: "12/12 (五)",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>highlight: "核心展覽 &amp; 賞秋景",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>events: [</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "10:00", title: "展覽 (第2刷)", desc: "Gallery AaMo 上午場", icon: "star", map: "Gallery AaMo" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "12:00", title: "午餐", desc: "東京巨蛋周邊 → 移動至新宿", icon: "food" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "13:30", title: "新宿御苑", desc: "賞紅葉/銀杏", icon: "tree", map: "Shinjuku Gyoen" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "18:00", title: "Workman 購物", desc: "池袋太陽城店", icon: "shop" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "20:00", title: "溫泉", desc: "享受飯店設施", icon: "bath" }</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>date: "12/13 (六)",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>highlight: "明治神宮 &amp; 最後採購",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>events: [</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "11:00", title: "退房", desc: "寄放行李", icon: "hotel" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "11:30", title: "明治神宮", desc: "原宿午餐", icon: "tree", map: "Meiji Jingu" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "13:00", title: "池袋採購", desc: "P'PARCO, BIC CAMERA, ISEKI", icon: "shop" },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "18:45", title: "前往機場", desc: "務必準時出發！", icon: "bus", important: true },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "20:00", title: "機場報到", desc: "最後免稅店購物", icon: "flight" }</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>date: "12/14 (日)",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>highlight: "平安返家",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>events: [</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{ time: "01:55", title: "起飛返港", desc: "UO629", icon: "flight" }</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>checklist: [</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 1, text: "護照 (有效期6個月以上)", checked: false },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 2, text: "Visit Japan Web 填寫截圖", checked: false },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 3, text: "SIM 卡 / 漫遊開通", checked: false },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 4, text: "日幣現金 / 信用卡", checked: false },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 5, text: "行動電源 &amp; 充電線", checked: false },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 6, text: "Agoda 訂房憑證", checked: false },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 7, text: "7-11 取票代碼", checked: false },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{ id: 8, text: "常備藥品", checked: false }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>guides: [</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>title: "明治神宮豆知識",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>content: "明治神宮供奉明治天皇和昭憲皇太后。進入鳥居前請先鞠躬，參道中間是神明的通道，請靠兩側行走。手水舍洗手順序：左手→右手→漱口→左手→洗柄。",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>tag: "文化"</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>title: "大眾溫泉禮儀",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>content: "1. 入池前務必先將身體洗淨。\n2. 毛巾不可浸入浴池中 (可放在頭上)。\n3. 長髮請盤起。\n4. 進入更衣室前請擦乾身體。\n5. 身上有大片刺青者通常禁止進入 (Dormy Inn 規定請現場確認)。",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>tag: "禮儀"</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>title: "新宿御苑",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>content: "原為皇室庭園，橫跨新宿與澀谷。園內有日式庭園、英式風景庭園與法式整形庭園。禁止攜帶酒精飲料進入，也禁止使用遊樂器材。",</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>tag: "景點"</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>]</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- COMPONENTS ---</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 1. Plan View (行程)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const PlanView = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [selectedDay, setSelectedDay] = useState(0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const dayData = TRIP_DATA.itinerary[selectedDay];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const getIcon = (type) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>switch(type) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'flight': return &lt;Plane size={18} /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'hotel': return &lt;Bed size={18} /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'food': return &lt;Coffee size={18} /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'shop': return &lt;ShoppingBag size={18} /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'bus': return &lt;div className="text-xs font-bold"&gt;BUS&lt;/div&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'tree': return &lt;Sun size={18} /&gt;; // Nature</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'star': return &lt;div className="text-xs font-bold"&gt;★&lt;/div&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>default: return &lt;Info size={18} /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="pb-24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* Date Selector */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="sticky top-0 bg-[#f9f9f6]/95 backdrop-blur-sm z-10 pt-4 pb-2 px-4 shadow-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex justify-between items-center mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                             </span>&lt;h2 className="text-xl font-bold tracking-widest text-stone-700"&gt;ITINERARY&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex gap-2 overflow-x-auto no-scrollbar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>{TRIP_DATA.itinerary.map((day, idx) =&gt; (</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>key={idx}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>onClick={() =&gt; setSelectedDay(idx)}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>className={`flex-shrink-0 px-4 py-2 rounded-md text-sm font-mono transition-colors ${</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>selectedDay === idx<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>? 'bg-stone-700 text-white'<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>: 'bg-white text-stone-500 border border-stone-200'</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>}`}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>{day.date.split(' ')[0]}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>))}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* Day Content */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="px-4 mt-4 animate-fadeIn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="mb-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-sm text-stone-500 font-mono"&gt;{dayData.date}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 className="text-2xl font-bold text-stone-800"&gt;{dayData.highlight}&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{/* Special Info Cards (Hotel/Flight) - Only show on relevant days */}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{(selectedDay === 1 || selectedDay === 2) &amp;&amp; (</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="card p-4 mb-6 border-l-4 border-stone-400 bg-white"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex items-start gap-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;Bed className="text-stone-600 mt-1" size={20} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;p className="font-bold text-stone-800"&gt;{TRIP_DATA.hotel.name}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;p className="text-xs text-stone-500 mt-1"&gt;{TRIP_DATA.hotel.note}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;a href={TRIP_DATA.hotel.mapUrl} target="_blank" className="text-xs text-stone-400 underline mt-2 block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>Open Google Maps</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>)}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="relative border-l border-stone-300 ml-3 space-y-8 py-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>{dayData.events.map((evt, idx) =&gt; (</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div key={idx} className="relative pl-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>{/* Timeline Dot */}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-[#f9f9f6] flex items-center justify-center ${evt.important ? 'bg-red-700' : 'bg-stone-400'}`}&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>{/* Content */}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className={`card p-4 transition-all ${evt.important ? 'border-red-100 bg-red-50/30' : ''}`}&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="flex justify-between items-start mb-1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;span className="font-mono text-sm font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                                </span>{evt.time}</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="text-stone-400"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                                </span>{getIcon(evt.icon)}</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;h4 className="font-bold text-lg text-stone-800 mb-1"&gt;{evt.title}&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;p className="text-sm text-stone-600 leading-relaxed"&gt;{evt.desc}&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>{evt.map &amp;&amp; (</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;a<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                                </span>href={`https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(evt.map + " Tokyo")}`}</p>
-<p class="p1"><span class="Apple-converted-space">                                                </span>target="_blank"</p>
-<p class="p1"><span class="Apple-converted-space">                                                </span>className="mt-3 inline-flex items-center text-xs text-stone-500 border border-stone-300 px-3 py-1.5 rounded-full hover:bg-stone-50"</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;MapPin size={12} className="mr-1" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                                </span>Google Maps</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>)}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>))}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 2. Guide View (導覽)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const GuideView = () =&gt; (</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="px-4 py-6 pb-24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 className="text-xl font-bold tracking-widest text-stone-700 mb-6"&gt;GUIDE&lt;/h2&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="space-y-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{TRIP_DATA.guides.map((guide, idx) =&gt; (</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div key={idx} className="card overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="bg-stone-100 px-4 py-2 border-b border-stone-200 flex justify-between items-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="font-bold text-stone-700"&gt;{guide.title}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="text-[10px] bg-stone-300 text-white px-2 py-0.5 rounded-full"&gt;{guide.tag}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="p-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p className="text-sm text-stone-600 leading-7 whitespace-pre-line text-justify"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>{guide.content}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>))}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* Embedded Map Example - Sunshine City */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="card p-2 mt-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="mb-2 px-2 pt-2 font-bold text-sm text-stone-700"&gt;池袋 Sunshine City&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;iframe<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>width="100%"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>height="200"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>frameBorder="0"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>scrolling="no"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>marginHeight="0"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>marginWidth="0"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>src="https://www.openstreetmap.org/export/embed.html?bbox=139.7150%2C35.7280%2C139.7220%2C35.7320&amp;amp;layer=mapnik&amp;amp;marker=35.7295%2C139.7185"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>className="rounded bg-stone-100"</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&gt;&lt;/iframe&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 3. Wallet View (記帳) - Complex logic</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const WalletView = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [items, setItems] = useState([]);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [inputName, setInputName] = useState("");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [inputAmount, setInputAmount] = useState(""); // String for calculation</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [exchangeRate, setExchangeRate] = useState(0.052); // JPY to HKD</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [showRateInput, setShowRateInput] = useState(false);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Load from LocalStorage</p>
-<p class="p1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const savedItems = localStorage.getItem('tokyo2025_wallet');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const savedRate = localStorage.getItem('tokyo2025_rate');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (savedItems) setItems(JSON.parse(savedItems));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (savedRate) setExchangeRate(parseFloat(savedRate));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, []);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Save to LocalStorage</p>
-<p class="p1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>localStorage.setItem('tokyo2025_wallet', JSON.stringify(items));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, [items]);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const handleRateChange = (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const rate = parseFloat(e.target.value);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setExchangeRate(rate);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>localStorage.setItem('tokyo2025_rate', rate);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const calculateAmount = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>// Safe evaluation of simple math</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>// Remove anything that isn't a number or operator</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const sanitized = inputAmount.replace(/[^0-9+\-*/.]/g, '');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const result = Function('"use strict";return (' + sanitized + ')')();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return result;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} catch (e) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const handleAddItem = (imgBase64 = null) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (!inputName || !inputAmount) return;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const finalAmount = calculateAmount();</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const newItem = {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>id: Date.now(),</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>name: inputName,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>amountJPY: finalAmount,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>amountHKD: (finalAmount * exchangeRate).toFixed(1),</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>date: new Date().toLocaleDateString(),</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>image: imgBase64</p>
-<p class="p1"><span class="Apple-converted-space">                </span>};</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>setItems([newItem, ...items]);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setInputName("");</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setInputAmount("");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const handlePhotoUpload = (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const file = e.target.files[0];</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (file) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const reader = new FileReader();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>reader.onload = (event) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const img = new Image();</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>img.onload = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>// Resize logic</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>const canvas = document.createElement('canvas');</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>const ctx = canvas.getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>const MAX_WIDTH = 600;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>let width = img.width;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>let height = img.height;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>if (width &gt; MAX_WIDTH) {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>height *= MAX_WIDTH / width;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>width = MAX_WIDTH;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>canvas.width = width;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>canvas.height = height;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>ctx.drawImage(img, 0, 0, width, height);</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>const dataUrl = canvas.toDataURL('image/jpeg', 0.6); // Compress</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>handleAddItem(dataUrl);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>};</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>img.src = event.target.result;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>};</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>reader.readAsDataURL(file);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const totalJPY = items.reduce((sum, item) =&gt; sum + Number(item.amountJPY), 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const totalHKD = (totalJPY * exchangeRate).toFixed(0);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="px-4 py-6 pb-24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="flex justify-between items-end mb-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h2 className="text-xl font-bold tracking-widest text-stone-700"&gt;WALLET&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="text-right" onClick={() =&gt; setShowRateInput(!showRateInput)}&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span className="text-xs text-stone-400 font-mono block"&gt;匯率: {exchangeRate}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span className="text-2xl font-mono font-bold text-stone-800"&gt;HK${totalHKD}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{showRateInput &amp;&amp; (</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="card p-3 mb-4 bg-stone-100 animate-fadeIn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label className="text-xs text-stone-500 block mb-1"&gt;JPY to HKD Rate&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>type="number"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>step="0.001"</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>value={exchangeRate}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>onChange={handleRateChange}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>className="w-full p-2 rounded bg-white font-mono"</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>)}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* Input Area */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="card p-4 mb-6 sticky top-4 z-20 shadow-lg border-stone-200"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex gap-2 mb-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>type="text"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>placeholder="品項 (如: 拉麵)"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>className="flex-1 input-muji p-2 rounded text-stone-700"</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>value={inputName}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>onChange={(e) =&gt; setInputName(e.target.value)}</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex gap-2 mb-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>type="text"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>placeholder="金額 (支援算式: 1000+200)"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>className="flex-1 input-muji p-2 rounded font-mono text-lg"</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>value={inputAmount}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>onChange={(e) =&gt; setInputAmount(e.target.value)}</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex justify-between items-center text-xs text-stone-400 font-mono h-4 mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>{inputAmount &amp;&amp; &lt;span&gt;預覽: ¥{calculateAmount()}&lt;/span&gt;}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex gap-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label className="flex-1 bg-stone-200 text-stone-600 rounded-md py-3 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;Camera size={20} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="ml-2 text-sm font-medium"&gt;拍照存&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;input type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoUpload} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                </span>onClick={() =&gt; handleAddItem(null)}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>className="flex-1 bg-stone-700 text-white rounded-md py-3 flex items-center justify-center active:scale-95 transition-transform"</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;Plus size={20} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="ml-2 text-sm font-medium"&gt;記帳&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* History List */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="space-y-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{items.length === 0 &amp;&amp; (</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="text-center py-10 text-stone-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;Wallet size={48} className="mx-auto mb-2 opacity-50" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p&gt;尚未有消費紀錄&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>)}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{items.map((item) =&gt; (</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div key={item.id} className="card p-3 flex gap-3 items-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>{item.image ? (</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="w-12 h-12 bg-stone-100 rounded-md overflow-hidden flex-shrink-0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;img src={item.image} className="w-full h-full object-cover" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>) : (</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="w-12 h-12 bg-stone-50 rounded-md flex items-center justify-center text-stone-300 flex-shrink-0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;ShoppingBag size={20} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>)}</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex-1 min-w-0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h4 className="font-bold text-stone-700 truncate"&gt;{item.name}&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-xs text-stone-400"&gt;{item.date}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="text-right"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="font-mono font-bold text-stone-800"&gt;¥{item.amountJPY}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="font-mono text-xs text-stone-400"&gt;HK${item.amountHKD}&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>onClick={() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>if(confirm('刪除此筆紀錄？')) {</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>setItems(items.filter(i =&gt; i.id !== item.id));</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>}}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>className="p-2 text-stone-300 hover:text-red-400"</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;Trash2 size={16} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>))}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 4. Lists View (清單 &amp; 備忘)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const ListsView = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [checklist, setChecklist] = useState(TRIP_DATA.checklist);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [memo, setMemo] = useState("");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const savedCheck = localStorage.getItem('tokyo2025_check');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const savedMemo = localStorage.getItem('tokyo2025_memo');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (savedCheck) setChecklist(JSON.parse(savedCheck));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (savedMemo) setMemo(savedMemo);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, []);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>localStorage.setItem('tokyo2025_check', JSON.stringify(checklist));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>localStorage.setItem('tokyo2025_memo', memo);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, [checklist, memo]);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const toggleCheck = (id) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setChecklist(checklist.map(item =&gt;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>item.id === id ? { ...item, checked: !item.checked } : item</p>
-<p class="p1"><span class="Apple-converted-space">                </span>));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Auto-linkify function</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const renderMemo = (text) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const urlRegex = /(https?:\/\/[^\s]+)/g;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return text.split(urlRegex).map((part, i) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (part.match(urlRegex)) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>return &lt;a key={i} href={part} target="_blank" className="text-blue-600 underline break-all"&gt;{part}&lt;/a&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return part;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="px-4 py-6 pb-24 h-full"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 className="text-xl font-bold tracking-widest text-stone-700 mb-6"&gt;LISTS&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* Checklist */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 className="text-sm font-bold text-stone-400 mb-3 uppercase tracking-wider"&gt;Pre-Trip Check&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="card divide-y divide-stone-100"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>{checklist.map(item =&gt; (</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>key={item.id}<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>onClick={() =&gt; toggleCheck(item.id)}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>className="p-3 flex items-center gap-3 active:bg-stone-50 transition-colors cursor-pointer"</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${item.checked ? 'bg-stone-600 border-stone-600' : 'border-stone-300'}`}&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>{item.checked &amp;&amp; &lt;div className="text-white text-xs"&gt;✓&lt;/div&gt;}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span className={`text-sm ${item.checked ? 'text-stone-300 line-through' : 'text-stone-700'}`}&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>{item.text}</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>))}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* Memo */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="flex flex-col h-[40vh]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 className="text-sm font-bold text-stone-400 mb-3 uppercase tracking-wider"&gt;Memo&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;textarea</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>className="card flex-1 w-full p-4 text-sm leading-relaxed focus:outline-none focus:ring-1 focus:ring-stone-300 resize-none font-sans"</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>placeholder="輸入備忘... (網址會自動變成連結)"</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>value={memo}</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>onChange={(e) =&gt; setMemo(e.target.value)}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="mt-2 p-2 bg-stone-50 rounded border border-stone-200 text-xs text-stone-500 max-h-20 overflow-y-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>預覽 (連結可點擊): &lt;br/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span className="whitespace-pre-wrap"&gt;{renderMemo(memo)}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 5. Info View (資訊)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const InfoView = () =&gt; (</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="px-4 py-6 pb-24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;h2 className="text-xl font-bold tracking-widest text-stone-700 mb-6"&gt;INFO&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;div className="grid grid-cols-2 gap-4 mb-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="https://www.jma.go.jp/bosai/forecast/" target="_blank" className="card p-4 flex flex-col items-center justify-center gap-2 hover:bg-stone-50"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;Sun size={32} className="text-orange-400" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="text-sm font-bold text-stone-600"&gt;天氣預報&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="https://www.google.com/maps/search/police+station+near+me" target="_blank" className="card p-4 flex flex-col items-center justify-center gap-2 hover:bg-stone-50"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;AlertTriangle size={32} className="text-red-400" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="text-sm font-bold text-stone-600"&gt;緊急求助&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;div className="space-y-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="card p-4 border-l-4 border-red-500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 className="font-bold flex items-center gap-2 text-red-700 mb-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;Phone size={18} /&gt; 緊急聯絡</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="text-sm space-y-2 text-stone-600"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;警察: &lt;span className="font-mono font-bold"&gt;110&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;火警/救護車: &lt;span className="font-mono font-bold"&gt;119&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;台北駐日經濟文化代表處: &lt;br/&gt;&lt;span className="font-mono text-xs"&gt;03-3280-7111&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;香港駐東京經貿辦: &lt;br/&gt;&lt;span className="font-mono text-xs"&gt;03-3556-8980&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                     </span>&lt;div className="card p-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 className="font-bold mb-2 text-stone-700"&gt;注意事項&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;ul className="list-disc list-inside text-sm text-stone-600 space-y-1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;日本電壓 100V (雙平腳插頭)。&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;搭乘手扶梯：東京通常靠左站立。&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;電車內請勿講電話，手機請開靜音。&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;大多餐廳禁帶外食。&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;禁止邊走邊吃 (特別是觀光區)。&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- MAIN APP SHELL ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const App = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [activeTab, setActiveTab] = useState('plan');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const renderContent = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>switch(activeTab) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'plan': return &lt;PlanView /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'guide': return &lt;GuideView /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'wallet': return &lt;WalletView /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'lists': return &lt;ListsView /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>case 'info': return &lt;InfoView /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>default: return &lt;PlanView /&gt;;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const NavBtn = ({ id, icon: Icon, label }) =&gt; (</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>onClick={() =&gt; setActiveTab(id)}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>className={`flex flex-col items-center justify-center w-full py-2 transition-colors ${</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>activeTab === id ? 'text-stone-800' : 'text-stone-400'</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}`}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;Icon size={24} strokeWidth={activeTab === id ? 2.5 : 2} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span className="text-[10px] font-medium mt-1 tracking-wide"&gt;{label}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="max-w-md mx-auto min-h-screen bg-[#f9f9f6] relative shadow-2xl"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* Content Area */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="min-h-screen"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{renderContent()}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>{/* Bottom Navigation */}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-stone-200 safe-bottom z-50"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex justify-around items-center h-16 px-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;NavBtn id="plan" icon={Calendar} label="PLAN" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;NavBtn id="guide" icon={MapPin} label="GUIDE" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;NavBtn id="wallet" icon={Wallet} label="WALLET" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;NavBtn id="lists" icon={List} label="LISTS" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;NavBtn id="info" icon={Info} label="INFO" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const root = ReactDOM.createRoot(document.getElementById('root'));</p>
-<p class="p1"><span class="Apple-converted-space">        </span>root.render(&lt;App /&gt;);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { 
+            Calendar, MapPin, Wallet, List, Info, 
+            Plane, Bed, Coffee, ShoppingBag, Camera, 
+            ChevronRight, ExternalLink, Trash2, Plus, 
+            Calculator, Sun, Phone, AlertTriangle 
+        } = lucide;
+
+        // --- DATA SECTION ---
+        const TRIP_DATA = {
+            dates: ["12/10", "12/11", "12/12", "12/13", "12/14"],
+            hotel: {
+                name: "Dormy Inn Ikebukuro",
+                zhName: "天然温泉 豊穣の湯 ドーミーイン池袋",
+                address: "東京都豊島区東池袋3-11-11",
+                mapUrl: "https://www.google.com/maps/search/?api=1&query=Dormy+Inn+Ikebukuro",
+                note: "訂單編號: (請參考附件) | 12/11-12/13"
+            },
+            flights: [
+                { type: "去程", code: "UO624", time: "12/10 23:55 → 12/11 04:45", route: "HKG → HND T3" },
+                { type: "回程", code: "UO629", time: "12/14 01:55 起飛", route: "HND T3 → HKG" }
+            ],
+            itinerary: [
+                {
+                    date: "12/10 (三)",
+                    highlight: "出發日",
+                    events: [
+                        { time: "23:55", title: "香港出發", desc: "航班 UO624 / T3 報到", icon: "flight", important: true }
+                    ]
+                },
+                {
+                    date: "12/11 (四)",
+                    highlight: "抵達 & 購物 & 展覽",
+                    events: [
+                        { time: "04:45", title: "抵達羽田", desc: "入境、領SIM卡、梳洗", icon: "flight" },
+                        { time: "08:30", title: "巴士移動", desc: "利木津巴士前往池袋 (僅寄放行李)", icon: "bus" },
+                        { time: "10:30", title: "東京車站購物", desc: "皇居長夾、BUTTER甜點、7-11取票(請參考附件)", icon: "shop", map: "東京駅" },
+                        { time: "14:30", title: "Chiikawa Park", desc: "Sunshine City Annex 1F", icon: "shop" },
+                        { time: "16:00", title: "Check-in", desc: "Dormy Inn 池袋", icon: "hotel" },
+                        { time: "17:00", title: "展覽 (Gallery AaMo)", desc: "第1刷，錯開人潮", icon: "star", map: "Gallery AaMo" },
+                        { time: "20:30", title: "溫泉 & 晚餐", desc: "池袋周邊覓食", icon: "food" }
+                    ]
+                },
+                {
+                    date: "12/12 (五)",
+                    highlight: "核心展覽 & 賞秋景",
+                    events: [
+                        { time: "10:00", title: "展覽 (第2刷)", desc: "Gallery AaMo 上午場", icon: "star", map: "Gallery AaMo" },
+                        { time: "12:00", title: "午餐", desc: "東京巨蛋周邊 → 移動至新宿", icon: "food" },
+                        { time: "13:30", title: "新宿御苑", desc: "賞紅葉/銀杏", icon: "tree", map: "Shinjuku Gyoen" },
+                        { time: "18:00", title: "Workman 購物", desc: "池袋太陽城店", icon: "shop" },
+                        { time: "20:00", title: "溫泉", desc: "享受飯店設施", icon: "bath" }
+                    ]
+                },
+                {
+                    date: "12/13 (六)",
+                    highlight: "明治神宮 & 最後採購",
+                    events: [
+                        { time: "11:00", title: "退房", desc: "寄放行李", icon: "hotel" },
+                        { time: "11:30", title: "明治神宮", desc: "原宿午餐", icon: "tree", map: "Meiji Jingu" },
+                        { time: "13:00", title: "池袋採購", desc: "P'PARCO, BIC CAMERA, ISEKI", icon: "shop" },
+                        { time: "18:45", title: "前往機場", desc: "務必準時出發！", icon: "bus", important: true },
+                        { time: "20:00", title: "機場報到", desc: "最後免稅店購物", icon: "flight" }
+                    ]
+                },
+                {
+                    date: "12/14 (日)",
+                    highlight: "平安返家",
+                    events: [
+                        { time: "01:55", title: "起飛返港", desc: "UO629", icon: "flight" }
+                    ]
+                }
+            ],
+            checklist: [
+                { id: 1, text: "護照 (有效期6個月以上)", checked: false },
+                { id: 2, text: "Visit Japan Web 填寫截圖", checked: false },
+                { id: 3, text: "SIM 卡 / 漫遊開通", checked: false },
+                { id: 4, text: "日幣現金 / 信用卡", checked: false },
+                { id: 5, text: "行動電源 & 充電線", checked: false },
+                { id: 6, text: "Agoda 訂房憑證", checked: false },
+                { id: 7, text: "7-11 取票代碼", checked: false },
+                { id: 8, text: "常備藥品", checked: false }
+            ],
+            guides: [
+                {
+                    title: "明治神宮豆知識",
+                    content: "明治神宮供奉明治天皇和昭憲皇太后。進入鳥居前請先鞠躬，參道中間是神明的通道，請靠兩側行走。手水舍洗手順序：左手→右手→漱口→左手→洗柄。",
+                    tag: "文化"
+                },
+                {
+                    title: "大眾溫泉禮儀",
+                    content: "1. 入池前務必先將身體洗淨。\n2. 毛巾不可浸入浴池中 (可放在頭上)。\n3. 長髮請盤起。\n4. 進入更衣室前請擦乾身體。\n5. 身上有大片刺青者通常禁止進入 (Dormy Inn 規定請現場確認)。",
+                    tag: "禮儀"
+                },
+                {
+                    title: "新宿御苑",
+                    content: "原為皇室庭園，橫跨新宿與澀谷。園內有日式庭園、英式風景庭園與法式整形庭園。禁止攜帶酒精飲料進入，也禁止使用遊樂器材。",
+                    tag: "景點"
+                }
+            ]
+        };
+
+        // --- COMPONENTS ---
+
+        // 1. Plan View (行程)
+        const PlanView = () => {
+            const [selectedDay, setSelectedDay] = useState(0);
+            const dayData = TRIP_DATA.itinerary[selectedDay];
+
+            const getIcon = (type) => {
+                switch(type) {
+                    case 'flight': return <Plane size={18} />;
+                    case 'hotel': return <Bed size={18} />;
+                    case 'food': return <Coffee size={18} />;
+                    case 'shop': return <ShoppingBag size={18} />;
+                    case 'bus': return <div className="text-xs font-bold">BUS</div>;
+                    case 'tree': return <Sun size={18} />; // Nature
+                    case 'star': return <div className="text-xs font-bold">★</div>;
+                    default: return <Info size={18} />;
+                }
+            };
+
+            return (
+                <div className="pb-24">
+                    {/* Date Selector */}
+                    <div className="sticky top-0 bg-[#f9f9f6]/95 backdrop-blur-sm z-10 pt-4 pb-2 px-4 shadow-sm">
+                        <div className="flex justify-between items-center mb-2">
+                             <h2 className="text-xl font-bold tracking-widest text-stone-700">ITINERARY</h2>
+                        </div>
+                        <div className="flex gap-2 overflow-x-auto no-scrollbar">
+                            {TRIP_DATA.itinerary.map((day, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setSelectedDay(idx)}
+                                    className={`flex-shrink-0 px-4 py-2 rounded-md text-sm font-mono transition-colors ${
+                                        selectedDay === idx 
+                                        ? 'bg-stone-700 text-white' 
+                                        : 'bg-white text-stone-500 border border-stone-200'
+                                    }`}
+                                >
+                                    {day.date.split(' ')[0]}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Day Content */}
+                    <div className="px-4 mt-4 animate-fadeIn">
+                        <div className="mb-4">
+                            <p className="text-sm text-stone-500 font-mono">{dayData.date}</p>
+                            <h3 className="text-2xl font-bold text-stone-800">{dayData.highlight}</h3>
+                        </div>
+
+                        {/* Special Info Cards (Hotel/Flight) - Only show on relevant days */}
+                        {(selectedDay === 1 || selectedDay === 2) && (
+                            <div className="card p-4 mb-6 border-l-4 border-stone-400 bg-white">
+                                <div className="flex items-start gap-3">
+                                    <Bed className="text-stone-600 mt-1" size={20} />
+                                    <div>
+                                        <p className="font-bold text-stone-800">{TRIP_DATA.hotel.name}</p>
+                                        <p className="text-xs text-stone-500 mt-1">{TRIP_DATA.hotel.note}</p>
+                                        <a href={TRIP_DATA.hotel.mapUrl} target="_blank" className="text-xs text-stone-400 underline mt-2 block">
+                                            Open Google Maps
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="relative border-l border-stone-300 ml-3 space-y-8 py-2">
+                            {dayData.events.map((evt, idx) => (
+                                <div key={idx} className="relative pl-6">
+                                    {/* Timeline Dot */}
+                                    <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-[#f9f9f6] flex items-center justify-center ${evt.important ? 'bg-red-700' : 'bg-stone-400'}`}>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className={`card p-4 transition-all ${evt.important ? 'border-red-100 bg-red-50/30' : ''}`}>
+                                        <div className="flex justify-between items-start mb-1">
+                                            <span className="font-mono text-sm font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded">
+                                                {evt.time}
+                                            </span>
+                                            <div className="text-stone-400">
+                                                {getIcon(evt.icon)}
+                                            </div>
+                                        </div>
+                                        <h4 className="font-bold text-lg text-stone-800 mb-1">{evt.title}</h4>
+                                        <p className="text-sm text-stone-600 leading-relaxed">{evt.desc}</p>
+                                        
+                                        {evt.map && (
+                                            <a 
+                                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.map + " Tokyo")}`}
+                                                target="_blank"
+                                                className="mt-3 inline-flex items-center text-xs text-stone-500 border border-stone-300 px-3 py-1.5 rounded-full hover:bg-stone-50"
+                                            >
+                                                <MapPin size={12} className="mr-1" />
+                                                Google Maps
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 2. Guide View (導覽)
+        const GuideView = () => (
+            <div className="px-4 py-6 pb-24">
+                <h2 className="text-xl font-bold tracking-widest text-stone-700 mb-6">GUIDE</h2>
+                
+                <div className="space-y-6">
+                    {TRIP_DATA.guides.map((guide, idx) => (
+                        <div key={idx} className="card overflow-hidden">
+                            <div className="bg-stone-100 px-4 py-2 border-b border-stone-200 flex justify-between items-center">
+                                <span className="font-bold text-stone-700">{guide.title}</span>
+                                <span className="text-[10px] bg-stone-300 text-white px-2 py-0.5 rounded-full">{guide.tag}</span>
+                            </div>
+                            <div className="p-4">
+                                <p className="text-sm text-stone-600 leading-7 whitespace-pre-line text-justify">
+                                    {guide.content}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* Embedded Map Example - Sunshine City */}
+                    <div className="card p-2 mt-8">
+                        <div className="mb-2 px-2 pt-2 font-bold text-sm text-stone-700">池袋 Sunshine City</div>
+                        <iframe 
+                            width="100%" 
+                            height="200" 
+                            frameBorder="0" 
+                            scrolling="no" 
+                            marginHeight="0" 
+                            marginWidth="0" 
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=139.7150%2C35.7280%2C139.7220%2C35.7320&amp;layer=mapnik&amp;marker=35.7295%2C139.7185" 
+                            className="rounded bg-stone-100"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 3. Wallet View (記帳) - Complex logic
+        const WalletView = () => {
+            const [items, setItems] = useState([]);
+            const [inputName, setInputName] = useState("");
+            const [inputAmount, setInputAmount] = useState(""); // String for calculation
+            const [exchangeRate, setExchangeRate] = useState(0.052); // JPY to HKD
+            const [showRateInput, setShowRateInput] = useState(false);
+            
+            // Load from LocalStorage
+            useEffect(() => {
+                const savedItems = localStorage.getItem('tokyo2025_wallet');
+                const savedRate = localStorage.getItem('tokyo2025_rate');
+                if (savedItems) setItems(JSON.parse(savedItems));
+                if (savedRate) setExchangeRate(parseFloat(savedRate));
+            }, []);
+
+            // Save to LocalStorage
+            useEffect(() => {
+                localStorage.setItem('tokyo2025_wallet', JSON.stringify(items));
+            }, [items]);
+
+            const handleRateChange = (e) => {
+                const rate = parseFloat(e.target.value);
+                setExchangeRate(rate);
+                localStorage.setItem('tokyo2025_rate', rate);
+            };
+
+            const calculateAmount = () => {
+                try {
+                    // Safe evaluation of simple math
+                    // Remove anything that isn't a number or operator
+                    const sanitized = inputAmount.replace(/[^0-9+\-*/.]/g, '');
+                    const result = Function('"use strict";return (' + sanitized + ')')();
+                    return result;
+                } catch (e) {
+                    return 0;
+                }
+            };
+
+            const handleAddItem = (imgBase64 = null) => {
+                if (!inputName || !inputAmount) return;
+                
+                const finalAmount = calculateAmount();
+                
+                const newItem = {
+                    id: Date.now(),
+                    name: inputName,
+                    amountJPY: finalAmount,
+                    amountHKD: (finalAmount * exchangeRate).toFixed(1),
+                    date: new Date().toLocaleDateString(),
+                    image: imgBase64
+                };
+                
+                setItems([newItem, ...items]);
+                setInputName("");
+                setInputAmount("");
+            };
+
+            const handlePhotoUpload = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            // Resize logic
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            const MAX_WIDTH = 600;
+                            let width = img.width;
+                            let height = img.height;
+
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                            canvas.width = width;
+                            canvas.height = height;
+                            ctx.drawImage(img, 0, 0, width, height);
+                            const dataUrl = canvas.toDataURL('image/jpeg', 0.6); // Compress
+                            handleAddItem(dataUrl);
+                        };
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            const totalJPY = items.reduce((sum, item) => sum + Number(item.amountJPY), 0);
+            const totalHKD = (totalJPY * exchangeRate).toFixed(0);
+
+            return (
+                <div className="px-4 py-6 pb-24">
+                    <div className="flex justify-between items-end mb-6">
+                        <h2 className="text-xl font-bold tracking-widest text-stone-700">WALLET</h2>
+                        <div className="text-right" onClick={() => setShowRateInput(!showRateInput)}>
+                            <span className="text-xs text-stone-400 font-mono block">匯率: {exchangeRate}</span>
+                            <span className="text-2xl font-mono font-bold text-stone-800">HK${totalHKD}</span>
+                        </div>
+                    </div>
+
+                    {showRateInput && (
+                        <div className="card p-3 mb-4 bg-stone-100 animate-fadeIn">
+                            <label className="text-xs text-stone-500 block mb-1">JPY to HKD Rate</label>
+                            <input 
+                                type="number" 
+                                step="0.001"
+                                value={exchangeRate}
+                                onChange={handleRateChange}
+                                className="w-full p-2 rounded bg-white font-mono"
+                            />
+                        </div>
+                    )}
+
+                    {/* Input Area */}
+                    <div className="card p-4 mb-6 sticky top-4 z-20 shadow-lg border-stone-200">
+                        <div className="flex gap-2 mb-3">
+                            <input 
+                                type="text" 
+                                placeholder="品項 (如: 拉麵)" 
+                                className="flex-1 input-muji p-2 rounded text-stone-700"
+                                value={inputName}
+                                onChange={(e) => setInputName(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex gap-2 mb-3">
+                            <input 
+                                type="text" 
+                                placeholder="金額 (支援算式: 1000+200)" 
+                                className="flex-1 input-muji p-2 rounded font-mono text-lg"
+                                value={inputAmount}
+                                onChange={(e) => setInputAmount(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex justify-between items-center text-xs text-stone-400 font-mono h-4 mb-2">
+                            {inputAmount && <span>預覽: ¥{calculateAmount()}</span>}
+                        </div>
+
+                        <div className="flex gap-2">
+                            <label className="flex-1 bg-stone-200 text-stone-600 rounded-md py-3 flex items-center justify-center cursor-pointer active:scale-95 transition-transform">
+                                <Camera size={20} />
+                                <span className="ml-2 text-sm font-medium">拍照存</span>
+                                <input type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoUpload} />
+                            </label>
+                            <button 
+                                onClick={() => handleAddItem(null)}
+                                className="flex-1 bg-stone-700 text-white rounded-md py-3 flex items-center justify-center active:scale-95 transition-transform"
+                            >
+                                <Plus size={20} />
+                                <span className="ml-2 text-sm font-medium">記帳</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* History List */}
+                    <div className="space-y-3">
+                        {items.length === 0 && (
+                            <div className="text-center py-10 text-stone-300">
+                                <Wallet size={48} className="mx-auto mb-2 opacity-50" />
+                                <p>尚未有消費紀錄</p>
+                            </div>
+                        )}
+                        {items.map((item) => (
+                            <div key={item.id} className="card p-3 flex gap-3 items-center">
+                                {item.image ? (
+                                    <div className="w-12 h-12 bg-stone-100 rounded-md overflow-hidden flex-shrink-0">
+                                        <img src={item.image} className="w-full h-full object-cover" />
+                                    </div>
+                                ) : (
+                                    <div className="w-12 h-12 bg-stone-50 rounded-md flex items-center justify-center text-stone-300 flex-shrink-0">
+                                        <ShoppingBag size={20} />
+                                    </div>
+                                )}
+                                <div className="flex-1 min-w-0">
+                                    <h4 className="font-bold text-stone-700 truncate">{item.name}</h4>
+                                    <p className="text-xs text-stone-400">{item.date}</p>
+                                </div>
+                                <div className="text-right">
+                                    <p className="font-mono font-bold text-stone-800">¥{item.amountJPY}</p>
+                                    <p className="font-mono text-xs text-stone-400">HK${item.amountHKD}</p>
+                                </div>
+                                <button 
+                                    onClick={() => {
+                                        if(confirm('刪除此筆紀錄？')) {
+                                            setItems(items.filter(i => i.id !== item.id));
+                                        }
+                                    }}
+                                    className="p-2 text-stone-300 hover:text-red-400"
+                                >
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        // 4. Lists View (清單 & 備忘)
+        const ListsView = () => {
+            const [checklist, setChecklist] = useState(TRIP_DATA.checklist);
+            const [memo, setMemo] = useState("");
+
+            useEffect(() => {
+                const savedCheck = localStorage.getItem('tokyo2025_check');
+                const savedMemo = localStorage.getItem('tokyo2025_memo');
+                if (savedCheck) setChecklist(JSON.parse(savedCheck));
+                if (savedMemo) setMemo(savedMemo);
+            }, []);
+
+            useEffect(() => {
+                localStorage.setItem('tokyo2025_check', JSON.stringify(checklist));
+                localStorage.setItem('tokyo2025_memo', memo);
+            }, [checklist, memo]);
+
+            const toggleCheck = (id) => {
+                setChecklist(checklist.map(item => 
+                    item.id === id ? { ...item, checked: !item.checked } : item
+                ));
+            };
+
+            // Auto-linkify function
+            const renderMemo = (text) => {
+                const urlRegex = /(https?:\/\/[^\s]+)/g;
+                return text.split(urlRegex).map((part, i) => {
+                    if (part.match(urlRegex)) {
+                        return <a key={i} href={part} target="_blank" className="text-blue-600 underline break-all">{part}</a>;
+                    }
+                    return part;
+                });
+            };
+
+            return (
+                <div className="px-4 py-6 pb-24 h-full">
+                    <h2 className="text-xl font-bold tracking-widest text-stone-700 mb-6">LISTS</h2>
+
+                    {/* Checklist */}
+                    <div className="mb-8">
+                        <h3 className="text-sm font-bold text-stone-400 mb-3 uppercase tracking-wider">Pre-Trip Check</h3>
+                        <div className="card divide-y divide-stone-100">
+                            {checklist.map(item => (
+                                <div 
+                                    key={item.id} 
+                                    onClick={() => toggleCheck(item.id)}
+                                    className="p-3 flex items-center gap-3 active:bg-stone-50 transition-colors cursor-pointer"
+                                >
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${item.checked ? 'bg-stone-600 border-stone-600' : 'border-stone-300'}`}>
+                                        {item.checked && <div className="text-white text-xs">✓</div>}
+                                    </div>
+                                    <span className={`text-sm ${item.checked ? 'text-stone-300 line-through' : 'text-stone-700'}`}>
+                                        {item.text}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Memo */}
+                    <div className="flex flex-col h-[40vh]">
+                        <h3 className="text-sm font-bold text-stone-400 mb-3 uppercase tracking-wider">Memo</h3>
+                        <textarea
+                            className="card flex-1 w-full p-4 text-sm leading-relaxed focus:outline-none focus:ring-1 focus:ring-stone-300 resize-none font-sans"
+                            placeholder="輸入備忘... (網址會自動變成連結)"
+                            value={memo}
+                            onChange={(e) => setMemo(e.target.value)}
+                        />
+                        <div className="mt-2 p-2 bg-stone-50 rounded border border-stone-200 text-xs text-stone-500 max-h-20 overflow-y-auto">
+                            預覽 (連結可點擊): <br/>
+                            <span className="whitespace-pre-wrap">{renderMemo(memo)}</span>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 5. Info View (資訊)
+        const InfoView = () => (
+            <div className="px-4 py-6 pb-24">
+                 <h2 className="text-xl font-bold tracking-widest text-stone-700 mb-6">INFO</h2>
+
+                 <div className="grid grid-cols-2 gap-4 mb-6">
+                    <a href="https://www.jma.go.jp/bosai/forecast/" target="_blank" className="card p-4 flex flex-col items-center justify-center gap-2 hover:bg-stone-50">
+                        <Sun size={32} className="text-orange-400" />
+                        <span className="text-sm font-bold text-stone-600">天氣預報</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/police+station+near+me" target="_blank" className="card p-4 flex flex-col items-center justify-center gap-2 hover:bg-stone-50">
+                        <AlertTriangle size={32} className="text-red-400" />
+                        <span className="text-sm font-bold text-stone-600">緊急求助</span>
+                    </a>
+                 </div>
+
+                 <div className="space-y-4">
+                    <div className="card p-4 border-l-4 border-red-500">
+                        <h3 className="font-bold flex items-center gap-2 text-red-700 mb-2">
+                            <Phone size={18} /> 緊急聯絡
+                        </h3>
+                        <div className="text-sm space-y-2 text-stone-600">
+                            <p>警察: <span className="font-mono font-bold">110</span></p>
+                            <p>火警/救護車: <span className="font-mono font-bold">119</span></p>
+                            <p>台北駐日經濟文化代表處: <br/><span className="font-mono text-xs">03-3280-7111</span></p>
+                            <p>香港駐東京經貿辦: <br/><span className="font-mono text-xs">03-3556-8980</span></p>
+                        </div>
+                    </div>
+
+                     <div className="card p-4">
+                        <h3 className="font-bold mb-2 text-stone-700">注意事項</h3>
+                        <ul className="list-disc list-inside text-sm text-stone-600 space-y-1">
+                            <li>日本電壓 100V (雙平腳插頭)。</li>
+                            <li>搭乘手扶梯：東京通常靠左站立。</li>
+                            <li>電車內請勿講電話，手機請開靜音。</li>
+                            <li>大多餐廳禁帶外食。</li>
+                            <li>禁止邊走邊吃 (特別是觀光區)。</li>
+                        </ul>
+                    </div>
+                 </div>
+            </div>
+        );
+
+        // --- MAIN APP SHELL ---
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('plan');
+
+            const renderContent = () => {
+                switch(activeTab) {
+                    case 'plan': return <PlanView />;
+                    case 'guide': return <GuideView />;
+                    case 'wallet': return <WalletView />;
+                    case 'lists': return <ListsView />;
+                    case 'info': return <InfoView />;
+                    default: return <PlanView />;
+                }
+            };
+
+            const NavBtn = ({ id, icon: Icon, label }) => (
+                <button 
+                    onClick={() => setActiveTab(id)}
+                    className={`flex flex-col items-center justify-center w-full py-2 transition-colors ${
+                        activeTab === id ? 'text-stone-800' : 'text-stone-400'
+                    }`}
+                >
+                    <Icon size={24} strokeWidth={activeTab === id ? 2.5 : 2} />
+                    <span className="text-[10px] font-medium mt-1 tracking-wide">{label}</span>
+                </button>
+            );
+
+            return (
+                <div className="max-w-md mx-auto min-h-screen bg-[#f9f9f6] relative shadow-2xl">
+                    {/* Content Area */}
+                    <div className="min-h-screen">
+                        {renderContent()}
+                    </div>
+
+                    {/* Bottom Navigation */}
+                    <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-stone-200 safe-bottom z-50">
+                        <div className="flex justify-around items-center h-16 px-2">
+                            <NavBtn id="plan" icon={Calendar} label="PLAN" />
+                            <NavBtn id="guide" icon={MapPin} label="GUIDE" />
+                            <NavBtn id="wallet" icon={Wallet} label="WALLET" />
+                            <NavBtn id="lists" icon={List} label="LISTS" />
+                            <NavBtn id="info" icon={Info} label="INFO" />
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
