@@ -191,22 +191,27 @@
         }
         .timeline-dot {
             position: absolute;
-            left: -28px;
+            left: -33px; /* Adjusted for larger size to keep centered */
             top: 0;
-            width: 14px;
-            height: 14px;
+            width: 26px; /* Larger Width */
+            height: 26px; /* Larger Height */
             background: var(--accent);
             border-radius: 50%;
             border: 2px solid #fff;
             box-shadow: 0 0 5px var(--accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px; /* Larger Icon Font Size */
+            color: #451a03;
         }
         .timeline-time {
             font-family: 'Cinzel', serif;
             font-weight: bold;
-            color: var(--accent-light); /* Changed to Gold for better visibility on dark bg */
-            font-size: 1.1rem; /* Slightly larger */
+            color: var(--accent-light);
+            font-size: 1.1rem;
             margin-bottom: 4px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* Shadow for contrast */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
         .timeline-content {
             background: rgba(255, 255, 255, 0.7);
@@ -308,7 +313,7 @@
             cursor: default;
         }
         .spotlight-text {
-            font-size: 1.8rem; /* BIG TEXT */
+            font-size: 1.8rem;
             font-weight: bold;
             color: #000;
             line-height: 1.4;
@@ -323,7 +328,6 @@
             margin-top: 10px;
             cursor: zoom-in; /* Indicate visual interaction */
         }
-
 
         /* Checklist */
         .checklist-item {
@@ -370,7 +374,7 @@
             padding: 20px;
             border-radius: 8px;
             width: 90%;
-            max-width: 500px; /* Increased max-width */
+            max-width: 500px;
             border: 2px solid var(--accent);
             max-height: 95vh;
             overflow-y: auto;
@@ -460,6 +464,42 @@
             border-color: var(--primary);
         }
         .upload-area p { margin: 5px 0 0 0; font-size: 0.85rem; color: #666; }
+
+        /* Input Group with Copy Button (New) */
+        .input-group {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 12px;
+            align-items: flex-end;
+        }
+        .input-wrapper {
+            flex: 1;
+        }
+        .input-wrapper label {
+            display: block;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+        .input-group input {
+            margin-bottom: 0;
+            width: 100%;
+        }
+        .btn-copy {
+            background: linear-gradient(180deg, #475569 0%, #334155 100%);
+            border: 1px solid #64748b;
+            color: #fff;
+            width: 44px;
+            height: 43px; /* Match input height approx */
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .btn-copy:active { transform: translateY(1px); box-shadow: none; }
     </style>
 </head>
 <body>
@@ -473,6 +513,7 @@
         
         <!-- SECTION: FLIGHT & HOTEL -->
         <section id="sec-booking">
+            
             <!-- Flights -->
             <div class="rpg-card">
                 <div class="card-title"><i class="fa-solid fa-plane-departure"></i> 航班資訊</div>
@@ -511,6 +552,17 @@
                 </div>
                 <div style="margin-top: 10px; text-align: right;">
                     <a href="https://www.google.com/maps/search/?api=1&query=Dormy+Inn+Ikebukuro" target="_blank" class="btn btn-map btn-sm"><i class="fa-solid fa-map-location-dot"></i> 導航</a>
+                </div>
+            </div>
+
+            <!-- Personal Info (Moved to Bottom) -->
+            <div class="rpg-card">
+                <div class="card-title"><i class="fa-solid fa-address-card"></i> 個人資訊 (僅存本機)</div>
+                <div id="personalInfoContainer">
+                    <!-- JS Generated Inputs -->
+                </div>
+                <div style="text-align:right; font-size:0.75rem; color:#888; margin-top:5px;">
+                    * 點擊右側按鈕即可複製
                 </div>
             </div>
         </section>
@@ -579,9 +631,7 @@
                     <a href="tel:+81-3-3280-7811" class="btn btn-sm">辦事處電話</a>
                 </div>
                 <hr style="border-color: #8b7355; opacity: 0.3;">
-                <p style="font-size: 0.8rem; color: #666;">
-                    * 7-Eleven 領票代碼: <strong>2269602155961</strong> (D1)
-                </p>
+                <!-- Removed 7-Eleven text -->
             </div>
         </section>
 
@@ -641,11 +691,11 @@
         </div>
     </div>
 
-    <!-- Add Memo Modal -->
+    <!-- Add/Edit Memo Modal -->
     <div id="memoModal" class="modal hidden">
         <div class="modal-content">
             <h3 class="cinzel" style="margin-top: 0; margin-bottom: 15px; border-bottom: 2px solid var(--accent); padding-bottom: 10px;">
-                <i class="fa-solid fa-note-sticky"></i> 新增便條
+                <i class="fa-solid fa-note-sticky"></i> 編輯便條
             </h3>
             <input type="hidden" id="memoId">
             
@@ -667,7 +717,7 @@
 
             <div style="display: flex; gap: 10px; margin-top: 20px;">
                 <button class="btn btn-danger" style="flex: 1;" onclick="closeModal('memoModal')">取消</button>
-                <button class="btn btn-gold" style="flex: 1;" onclick="saveMemo()"><i class="fa-solid fa-check"></i> 建立</button>
+                <button class="btn btn-gold" style="flex: 1;" onclick="saveMemo()"><i class="fa-solid fa-check"></i> 儲存</button>
             </div>
         </div>
     </div>
@@ -706,10 +756,18 @@
 
     <script>
         // --- DATA INITIALIZATION ---
-        const DATA_VERSION = 5.1; 
+        const DATA_VERSION = 6.1; // Version Bump for Field Changes
         
         const DEFAULT_DATA = {
             version: DATA_VERSION,
+            personalInfo: {
+                nameCh: '',
+                nameEn: '',
+                passport: '',
+                dob: '',
+                email: '',
+                passportExpiry: '' // Added field
+            },
             itinerary: [
                 // D1
                 { id: 1, day: 'D1', date: '12/11', time: '04:45', title: '抵達羽田 T3', desc: '入境清關(預計05:30完成) → 領 SIM 卡(JAL ABC) → Refresh Room 梳洗 → 寄行李', type: 'transport', link: 'https://tokyo-haneda.com/zh-CHT/service/facilities/shower_room.html' },
@@ -756,17 +814,22 @@
             if (!stored || !stored.version || stored.version < DATA_VERSION) {
                 appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
                 if(stored) {
+                    // Preserve existing data during migration
+                    if(stored.personalInfo) appData.personalInfo = stored.personalInfo;
                     if(stored.checklist) {
                         appData.checklist = DEFAULT_DATA.checklist.map(newItem => {
                             const oldItem = stored.checklist.find(o => o.text === newItem.text);
                             return oldItem ? { ...newItem, checked: oldItem.checked } : newItem;
                         });
                     }
-                    if(stored.memo && typeof stored.memo === 'string') {
+                    if(stored.memos) appData.memos = stored.memos;
+                    else if(stored.memo && typeof stored.memo === 'string') {
                         appData.memos.push({ id: Date.now(), text: stored.memo, image: null });
-                    } else if (stored.memos) {
-                        appData.memos = stored.memos;
                     }
+                    // Keep edited itinerary if user wants, but here we reset itinerary for structure updates usually. 
+                    // To be safe for personal info updates, we keep user's edited itinerary if possible, 
+                    // but since V5->V6 is mainly adding personalInfo, let's keep itinerary if structure matches.
+                    if(stored.itinerary && stored.version >= 5.0) appData.itinerary = stored.itinerary;
                 }
                 console.log("Data migration: Updated to version " + DATA_VERSION);
             } else {
@@ -777,15 +840,76 @@
         }
 
         let currentDayTab = 'D1';
-        let currentEditingImage = null; // Temp holder for image processing
-        let activeTabId = 'sec-booking';
+        // --- PERSONAL INFO LOGIC (New) ---
+        const INFO_FIELDS = [
+            { key: 'nameCh', label: '中文姓名' },
+            { key: 'nameEn', label: '英文姓名 (Last, First)' },
+            { key: 'passport', label: '護照號碼' },
+            { key: 'dob', label: '出生日期 (YYYY/MM/DD)' },
+            { key: 'email', label: 'Email' },
+            { key: 'passportExpiry', label: '護照有效日期 (YYYY/MM/DD)' } // Changed from phone
+        ];
 
-        function saveData() {
+        function renderPersonalInfo() {
+            const container = document.getElementById('personalInfoContainer');
+            if(!container) return;
+            container.innerHTML = '';
+
+            INFO_FIELDS.forEach(field => {
+                const val = appData.personalInfo[field.key] || '';
+                
+                const div = document.createElement('div');
+                div.className = 'input-group';
+                div.innerHTML = `
+                    <div class="input-wrapper">
+                        <label>${field.label}</label>
+                        <input type="text" id="pi-${field.key}" value="${val}" oninput="updatePersonalInfo('${field.key}', this.value)">
+                    </div>
+                    <button class="btn-copy" onclick="copyText('pi-${field.key}')">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updatePersonalInfo(key, value) {
+            if (!appData.personalInfo) appData.personalInfo = {};
+            appData.personalInfo[key] = value;
+            saveData();
+        }
+
+        function copyText(elementId) {
+            const input = document.getElementById(elementId);
+            if (!input) return;
+            
+            // Mobile-friendly copy
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+            
             try {
-                localStorage.setItem('tokyoTrip2025', JSON.stringify(appData));
-            } catch (e) {
-                alert("儲存失敗！可能是圖片過多導致容量已滿。建議刪除部分圖片。");
+                // Try modern API first, fall back to execCommand for iframes
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(input.value).then(() => {
+                        showCopyFeedback(input);
+                    });
+                } else {
+                    document.execCommand('copy');
+                    showCopyFeedback(input);
+                }
+            } catch (err) {
+                alert('複製失敗，請手動複製');
             }
+        }
+
+        function showCopyFeedback(inputElement) {
+            // Visual feedback
+            const originalBg = inputElement.style.backgroundColor;
+            inputElement.style.backgroundColor = '#dcfce7'; // Light green
+            inputElement.style.transition = 'background-color 0.3s';
+            setTimeout(() => {
+                inputElement.style.backgroundColor = originalBg;
+            }, 500);
         }
 
         // --- NAVIGATION ---
@@ -880,7 +1004,7 @@
 
                 const itemHtml = `
                     <div class="timeline-item">
-                        <div class="timeline-dot" style="display:flex; justify-content:center; align-items:center; font-size:10px; color:#451a03;">
+                        <div class="timeline-dot">
                             <i class="fa-solid ${icon}"></i>
                         </div>
                         <div class="timeline-time">${item.time}</div>
@@ -898,7 +1022,7 @@
             container.appendChild(list);
         }
 
-        // --- MEMO LOGIC (Spotlight) ---
+        // --- MEMO LOGIC (Spotlight & Edit) ---
         function renderMemos() {
             const container = document.getElementById('memoContainer');
             container.innerHTML = '';
@@ -917,11 +1041,11 @@
                     imgHtml = `<img src="${memo.image}" class="memo-img" onclick="openMemoSpotlight(${memo.id})">`; // Clicking image opens spotlight
                 }
 
-                // Add a small preview class for regular view
                 div.innerHTML = `
                     <div class="memo-text">${linkify(memo.text)}</div>
                     ${imgHtml}
                     <div class="memo-actions">
+                         <button class="btn btn-sm" style="background:#555;" onclick="editMemo(${memo.id})"><i class="fa-solid fa-pen"></i> 編輯</button>
                         <button class="btn btn-sm" style="background:#222;" onclick="openMemoSpotlight(${memo.id})"><i class="fa-solid fa-expand"></i> 放大</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteMemo(${memo.id})"><i class="fa-solid fa-trash"></i></button>
                     </div>
@@ -963,19 +1087,47 @@
             modal.classList.remove('hidden');
         }
 
+        function editMemo(id) {
+            const memo = appData.memos.find(m => m.id === id);
+            if(!memo) return;
+            
+            document.getElementById('memoId').value = memo.id;
+            document.getElementById('memoText').value = memo.text;
+            
+            currentEditingImage = memo.image;
+            if(memo.image) {
+                document.getElementById('memoImagePreview').src = memo.image;
+                document.getElementById('memoImagePreviewContainer').style.display = 'block';
+            } else {
+                 clearEditImage('memo');
+            }
+            
+            document.getElementById('memoModal').classList.remove('hidden');
+        }
+
         function saveMemo() {
             const text = document.getElementById('memoText').value;
-            const id = Date.now();
+            const idRaw = document.getElementById('memoId').value;
             
             if (!text && !currentEditingImage) return alert("請輸入內容或上傳圖片");
 
             if (!appData.memos) appData.memos = [];
-            
-            appData.memos.unshift({
-                id: id,
-                text: text,
-                image: currentEditingImage
-            });
+
+            if (idRaw) {
+                // Edit existing
+                const id = parseInt(idRaw);
+                const idx = appData.memos.findIndex(m => m.id === id);
+                if(idx !== -1) {
+                    appData.memos[idx] = { id: id, text: text, image: currentEditingImage };
+                }
+            } else {
+                // Create new
+                 appData.memos.unshift({
+                    id: Date.now(),
+                    text: text,
+                    image: currentEditingImage
+                });
+            }
 
             saveData();
             renderMemos();
@@ -1297,6 +1449,7 @@
             renderMemos(); 
             fetchWeather();
             renderItinerary();
+            renderPersonalInfo(); // Initialize new section
             switchTab('sec-booking', document.querySelector('.nav-item.active'));
         };
 
