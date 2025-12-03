@@ -756,7 +756,7 @@
 
     <script>
         // --- DATA INITIALIZATION ---
-        const DATA_VERSION = 6.2; // Version Bump for Performance Fix
+        const DATA_VERSION = 6.3; // Version Bump for Memo Performance Fix
         
         const DEFAULT_DATA = {
             version: DATA_VERSION,
@@ -1129,16 +1129,29 @@
                 });
             }
 
-            saveData();
-            renderMemos();
+            // 1. Close Modal FIRST (Immediate feedback)
             closeModal('memoModal');
+            
+            // 2. Render UI
+            renderMemos();
+
+            // 3. Save Data in Background
+            setTimeout(() => {
+                saveData();
+            }, 50);
         }
 
         function deleteMemo(id) {
             if(confirm("移除這張便條？")) {
                 appData.memos = appData.memos.filter(m => m.id !== id);
-                saveData();
+                
+                // 1. Render UI First
                 renderMemos();
+
+                // 2. Save Data in Background
+                setTimeout(() => {
+                    saveData();
+                }, 50);
             }
         }
 
@@ -1172,8 +1185,14 @@
 
         function toggleCheck(index) {
             appData.checklist[index].checked = !appData.checklist[index].checked;
-            saveData();
+            
+            // Render first for responsiveness
             renderChecklist();
+            
+            // Save in background
+            setTimeout(() => {
+                saveData();
+            }, 50);
         }
 
         function addCheckItem() {
@@ -1182,8 +1201,12 @@
             if (val) {
                 appData.checklist.push({ text: val, checked: false });
                 input.value = '';
-                saveData();
+                
                 renderChecklist();
+                
+                setTimeout(() => {
+                    saveData();
+                }, 50);
             }
         }
         
@@ -1191,8 +1214,12 @@
             e.stopPropagation();
             if(confirm('刪除項目？')) {
                 appData.checklist.splice(index, 1);
-                saveData();
+                
                 renderChecklist();
+                
+                setTimeout(() => {
+                    saveData();
+                }, 50);
             }
         }
 
