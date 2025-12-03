@@ -687,7 +687,7 @@
                 <button class="btn btn-danger" style="flex: 1;" onclick="closeModal('editModal')">取消</button>
                 <button class="btn btn-gold" style="flex: 1;" onclick="saveItineraryItem()"><i class="fa-solid fa-floppy-disk"></i> 儲存</button>
             </div>
-            <button class="btn btn-danger" style="width: 100%; margin-top: 15px; opacity:0.7;" onclick="deleteItem()"><i class="fa-solid fa-trash-can"></i> 刪除此項目</button>
+            <button id="btnDeleteItinerary" class="btn btn-danger" style="width: 100%; margin-top: 15px; opacity:0.7;" onclick="deleteItem()"><i class="fa-solid fa-trash-can"></i> 刪除此項目</button>
         </div>
     </div>
 
@@ -756,7 +756,7 @@
 
     <script>
         // --- DATA INITIALIZATION ---
-        const DATA_VERSION = 6.1; // Version Bump for Field Changes
+        const DATA_VERSION = 6.2; // Version Bump for Performance Fix
         
         const DEFAULT_DATA = {
             version: DATA_VERSION,
@@ -1314,6 +1314,14 @@
             editingId = id;
             clearEditImage('itinerary');
 
+            // Handle Delete Button Visibility
+            const deleteBtn = document.getElementById('btnDeleteItinerary');
+            if (id) {
+                deleteBtn.classList.remove('hidden');
+            } else {
+                deleteBtn.classList.add('hidden');
+            }
+
             if (id) {
                 const item = appData.itinerary.find(i => i.id === id);
                 document.getElementById('editTime').value = item.time;
@@ -1379,17 +1387,32 @@
                 });
             }
 
-            saveData();
-            renderItinerary();
+            // 1. Close Modal FIRST (Immediate feedback)
             closeModal('editModal');
+            
+            // 2. Render UI (Immediate feedback)
+            renderItinerary();
+
+            // 3. Save Data in Background (Avoid UI freeze)
+            setTimeout(() => {
+                saveData();
+            }, 50);
         }
 
         function deleteItem() {
             if (editingId && confirm('確定刪除此行程？')) {
                 appData.itinerary = appData.itinerary.filter(i => i.id !== editingId);
-                saveData();
-                renderItinerary();
+                
+                // 1. Close Modal FIRST
                 closeModal('editModal');
+                
+                // 2. Render UI
+                renderItinerary();
+
+                // 3. Save Data in Background
+                setTimeout(() => {
+                    saveData();
+                }, 50);
             }
         }
 
